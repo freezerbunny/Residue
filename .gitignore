@@ -26,3 +26,4 @@ bin/
 # Project files
 *.cbp
 *.layout
+*.depend
