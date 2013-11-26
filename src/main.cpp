@@ -6,7 +6,7 @@
 
 #include <SDL/SDL.h>
 
-int main (int argc, char** argv) {
+int main (int argc, char **argv) {
   // initialize SDL video
   if (SDL_Init (SDL_INIT_VIDEO) < 0) {
     printf ("Unable to init SDL: %s\n", SDL_GetError());
@@ -17,15 +17,14 @@ int main (int argc, char** argv) {
   atexit (SDL_Quit);
 
   // create a new window
-  SDL_Surface* screen = SDL_SetVideoMode (640, 480, 16,
-                                          SDL_HWSURFACE | SDL_DOUBLEBUF);
+  SDL_Surface *screen = SDL_SetVideoMode (640, 480, 16, SDL_HWSURFACE | SDL_DOUBLEBUF);
   if (!screen) {
     printf ("Unable to set 640x480 video: %s\n", SDL_GetError());
     return 1;
   }
 
   // load an image
-  SDL_Surface* bmp = SDL_LoadBMP ("resources/cb.bmp");
+  SDL_Surface *bmp = SDL_LoadBMP ("resources/cb.bmp");
   if (!bmp) {
     printf ("Unable to load bitmap: %s\n", SDL_GetError());
     return 1;
