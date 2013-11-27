@@ -9,14 +9,7 @@
 #include <stdio.h>
 
 #include "RTile.h"
-
-#define TERMINAL_WIDTH 64
-#define TERMINAL_HEIGHT 48
-
-#define TILES_WIDTH 192
-#define TILES_HEIGHT 192
-#define TILE_WIDTH 12
-#define TILE_HEIGHT 12
+#include "RDefs.h"
 
 int main( int argc, char **argv ) {
   // SDL INITIALISATION
@@ -29,8 +22,8 @@ int main( int argc, char **argv ) {
   atexit( SDL_Quit );
 
   // Create a new window
-  int screen_width = TERMINAL_WIDTH * TILE_WIDTH;
-  int screen_height = TERMINAL_HEIGHT * TILE_HEIGHT;
+  int screen_width = TERMINAL_ROWS * TILE_W;
+  int screen_height = TERMINAL_COLUMNS * TILE_H;
 
   SDL_Window *window = SDL_CreateWindow( "Residue", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED,
                                          screen_width, screen_height, 0 );
@@ -94,6 +87,9 @@ int main( int argc, char **argv ) {
     // Clear screen
     SDL_SetRenderDrawColor( renderer, 0, 0, 0, 255 );
     SDL_RenderClear( renderer );
+
+    // Drawing tests.
+    tile_renderer->drawString(0, 0, 5, "Hello world!");
 
     // DRAWING ENDS HERE
 

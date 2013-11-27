@@ -3,10 +3,15 @@
 
 #include <string>
 #include <map>
+#include <stdio.h>
+#include <cstdio>
+#include <sstream>
+#include <cmath>
 
 #include "SDL.h"
 
 #include "RHandles.h"
+#include "RDefs.h"
 
 /** \brief Used to draw individual tiles to the screen.
  */
@@ -20,40 +25,56 @@ class RTile {
      */
     RTile(SDL_Renderer *renderer, SDL_Texture *tiles);
 
-    /** \brief Draws a tile to the screen.
+    /** \brief Draws a tile to the screen from an alt-code.
      *
-     * \param screen_x int Horizontal position of the tile (left to right).
-     * \param screen_y int Vertical position of the tile (top to bottom).
-     * \param c const char* The character to draw.
+     * \param row int Horizontal position of the tile (left to right).
+     * \param column int Vertical position of the tile (top to bottom).
+     * \param kC const int The character to draw.
      * \return bool True if drawing was successful.
      *
      */
-    bool draw_tile(int screen_x, int screen_y, const char *c);
+    bool drawTile(int column, int row, int c);
 
-    /** \brief Macro function to get the character of a tile from a string handle.
+    /** \brief Draws a tile to the screen from a string.
      *
-     * \param s std::string The handle of the tile to draw.
-     * \return char* The character associated with the handle.
+     * \param row int Horizontal position of the tile (left to right).
+     * \param column int Vertical position of the tile (top to bottom).
+     * \param kC std::string The character to draw.
+     * \return bool True if drawing was successful.
      *
      */
-    static char *get_character(std::string s);
+    bool drawTile(int column, int row, std::string c);
+
+    /** \brief Draws a string to the screen, wrapping if it is too long.
+     *
+     * \param column int The column to draw to.
+     * \param row int The row to draw to.
+     * \param row width How many columns before the string is wrapped.
+     * \param kString std::string The string to draw.
+     * \return bool True if drawing was successful.
+     *
+     */
+    bool drawString(int column, int row, int width, std::string str);
 
     /** \brief Macro function to get the alt-code of a character.
      *
-     * \param c char The character to get the alt code from.
-     * \return int* The altcode for the character.
+     * \param s std::string The character wrapped in a string.
+     * \return int The alt-code of the character.
      *
      */
-    static int *get_altcode(char c);
+    int get_code(std::string s);
 
     virtual ~RTile();
   protected:
   private:
     SDL_Renderer *renderer;
     SDL_Texture *tiles;
+    SDL_Rect *srcrect;
+    SDL_Rect *dstrect;
 
-    std::map<std::string, char> *tile_handles;
-    std::map<char, int> *char_handles;
+    std::map<std::string, int> tile_handles;
+
+    SDL_Point code_to_point(int kC);/**< Helper function to convert from a code to a SDL_Point */
 };
 
 #endif // R_TILE_H

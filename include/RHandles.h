@@ -14,14 +14,13 @@ class RHandles
 
     /** \brief Returns a map containing the handles and characters they point to.
      *
-     * \return std::map* A pointer to a map containing the handle character pairs.
+     * \return std::map A map containing the associations.
      *
      */
-    std::map<std::string, char> *get_tile_handles();
+    std::map<std::string, int> tile_handles();
   protected:
   private:
-    std::map<std::string, char> tile_handles;
-    std::map<char, int> char_handles;
+    std::map<std::string, int> tile_handles_;
 };
 
 #endif // RHANDLES_H
