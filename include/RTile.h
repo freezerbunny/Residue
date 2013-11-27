@@ -6,6 +6,8 @@
 
 #include "SDL.h"
 
+#include "RHandles.h"
+
 /** \brief Used to draw individual tiles to the screen.
  */
 class RTile {
@@ -14,31 +16,44 @@ class RTile {
      *
      * \param renderer SDL_Renderer* Handle to the renderer to draw on.
      * \param tiles SDL_Texture* Texture containing the tiles file.
-     * \param w int Width of each tile.
-     * \param h int Height of each tile.
      *
      */
-    RTile(SDL_Renderer *renderer, SDL_Texture *tiles, int w, int h);
+    RTile(SDL_Renderer *renderer, SDL_Texture *tiles);
 
+    /** \brief Draws a tile to the screen.
+     *
+     * \param screen_x int Horizontal position of the tile (left to right).
+     * \param screen_y int Vertical position of the tile (top to bottom).
+     * \param c const char* The character to draw.
+     * \return bool True if drawing was successful.
+     *
+     */
     bool draw_tile(int screen_x, int screen_y, const char *c);
 
     /** \brief Macro function to get the character of a tile from a string handle.
      *
-     * \param handle std::string The handle of the tile to draw.
-     * \return char* A character that points to the correct tile to draw.
+     * \param s std::string The handle of the tile to draw.
+     * \return char* The character associated with the handle.
      *
      */
-    static char *get_character(std::string handle);
+    static char *get_character(std::string s);
+
+    /** \brief Macro function to get the alt-code of a character.
+     *
+     * \param c char The character to get the alt code from.
+     * \return int* The altcode for the character.
+     *
+     */
+    static int *get_altcode(char c);
 
     virtual ~RTile();
   protected:
   private:
     SDL_Renderer *renderer;
     SDL_Texture *tiles;
-    int tile_w;
-    int tile_h;
 
     std::map<std::string, char> *tile_handles;
+    std::map<char, int> *char_handles;
 };
 
 #endif // R_TILE_H

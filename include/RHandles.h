@@ -17,10 +17,11 @@ class RHandles
      * \return std::map* A pointer to a map containing the handle character pairs.
      *
      */
-    std::map<std::string, char> *get_handles();
+    std::map<std::string, char> *get_tile_handles();
   protected:
   private:
-    std::map<std::string, char> handles;
+    std::map<std::string, char> tile_handles;
+    std::map<char, int> char_handles;
 };
 
 #endif // RHANDLES_H

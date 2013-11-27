@@ -1,10 +1,12 @@
 #include "RTile.h"
 
-RTile::RTile( SDL_Renderer *renderer, SDL_Texture *tiles, int w, int h ) {
+RTile::RTile( SDL_Renderer *renderer, SDL_Texture *tiles ) {
   this->renderer = renderer;
   this->tiles = tiles;
-  tile_w = w;
-  tile_h = h;
+
+  RHandles *r_handles = new RHandles();
+  tile_handles = r_handles->get_tile_handles();
+  delete r_handles;
 }
 
 bool RTile::draw_tile( int screen_x, int screen_y, const char *c ) {

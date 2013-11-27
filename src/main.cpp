@@ -10,8 +10,8 @@
 
 #include "RTile.h"
 
-#define SCREEN_WIDTH 640
-#define SCREEN_HEIGHT 480
+#define TERMINAL_WIDTH 64
+#define TERMINAL_HEIGHT 48
 
 #define TILES_WIDTH 192
 #define TILES_HEIGHT 192
@@ -19,7 +19,7 @@
 #define TILE_HEIGHT 12
 
 int main( int argc, char **argv ) {
-  // Initialize SDL video
+  // SDL INITIALISATION
   if( SDL_Init( SDL_INIT_VIDEO ) < 0 ) {
     printf( "Unable to init SDL: %s\n", SDL_GetError() );
     return 1;
@@ -29,10 +29,13 @@ int main( int argc, char **argv ) {
   atexit( SDL_Quit );
 
   // Create a new window
+  int screen_width = TERMINAL_WIDTH * TILE_WIDTH;
+  int screen_height = TERMINAL_HEIGHT * TILE_HEIGHT;
+
   SDL_Window *window = SDL_CreateWindow( "Residue", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED,
-                                         SCREEN_WIDTH, SCREEN_HEIGHT, 0 );
+                                         screen_width, screen_height, 0 );
   if( !window ) {
-    printf( "Unable to set 640x480 video: %s\n", SDL_GetError() );
+    printf( "Unable to set video: %s\n", SDL_GetError() );
     return 1;
   }
 
@@ -42,7 +45,6 @@ int main( int argc, char **argv ) {
     printf( "Could not initialise renderer: %s\n", SDL_GetError() );
     return 1;
   }
-
 
   // Load tiles
   SDL_Surface *tile_surface;
@@ -59,8 +61,10 @@ int main( int argc, char **argv ) {
     printf( "Could not create texture from surface: %s\n", IMG_GetError() );
   }
 
-  // Initialise tiles class.
-  RTile tile_renderer = RTile( renderer, texture, TILE_WIDTH, TILE_HEIGHT );
+  // OBJECT INTIALISATION
+
+  // Initialise tiles objects.
+  RTile *tile_renderer = new RTile( renderer, texture );
 
   // MAIN LOOP STARTS HERE
   bool done = false;
@@ -102,6 +106,7 @@ int main( int argc, char **argv ) {
   } // MAIN LOOP ENDS HERE
 
   // Call deconstructors.
+  delete tile_renderer;
 
   // All is well!
   printf( "Exited cleanly.\n" );

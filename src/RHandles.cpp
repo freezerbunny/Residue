@@ -7,111 +7,111 @@ RHandles::RHandles() {
   // Row 2.
 
   // Row 3.
-  handles[" "] = ' ';
-  handles["!"] = '!';
-  handles["\""] = '"';
-  handles["#"] = '#';
-  handles["$"] = '$';
-  handles["%"] = '%';
-  handles["&"] = '&';
-  handles["'"] = '\'';
-  handles["("] = '(';
-  handles[")"] = ')';
-  handles["*"] = '*';
-  handles["+"] = '+';
-  handles[","] = ',';
-  handles["-"] = '-';
-  handles["."] = '.';
-  handles["/"] = '/';
+  tile_handles[" "] = ' ';
+  tile_handles["!"] = '!';
+  tile_handles["\""] = '"';
+  tile_handles["#"] = '#';
+  tile_handles["$"] = '$';
+  tile_handles["%"] = '%';
+  tile_handles["&"] = '&';
+  tile_handles["'"] = '\'';
+  tile_handles["("] = '(';
+  tile_handles[")"] = ')';
+  tile_handles["*"] = '*';
+  tile_handles["+"] = '+';
+  tile_handles[","] = ',';
+  tile_handles["-"] = '-';
+  tile_handles["."] = '.';
+  tile_handles["/"] = '/';
 
   // Row 4.
-  handles["0"] = '0';
-  handles["1"] = '1';
-  handles["2"] = '2';
-  handles["3"] = '3';
-  handles["4"] = '4';
-  handles["5"] = '5';
-  handles["6"] = '6';
-  handles["7"] = '7';
-  handles["8"] = '8';
-  handles["9"] = '9';
-  handles[":"] = ':';
-  handles[";"] = ';';
-  handles["<"] = '<';
-  handles["="] = '=';
-  handles[">"] = '>';
-  handles["?"] = '?';
+  tile_handles["0"] = '0';
+  tile_handles["1"] = '1';
+  tile_handles["2"] = '2';
+  tile_handles["3"] = '3';
+  tile_handles["4"] = '4';
+  tile_handles["5"] = '5';
+  tile_handles["6"] = '6';
+  tile_handles["7"] = '7';
+  tile_handles["8"] = '8';
+  tile_handles["9"] = '9';
+  tile_handles[":"] = ':';
+  tile_handles[";"] = ';';
+  tile_handles["<"] = '<';
+  tile_handles["="] = '=';
+  tile_handles[">"] = '>';
+  tile_handles["?"] = '?';
 
   // Row 5.
-  handles["@"] = '@';
-  handles["A"] = 'A';
-  handles["B"] = 'B';
-  handles["C"] = 'C';
-  handles["D"] = 'D';
-  handles["E"] = 'E';
-  handles["F"] = 'F';
-  handles["G"] = 'G';
-  handles["H"] = 'H';
-  handles["I"] = 'I';
-  handles["J"] = 'J';
-  handles["K"] = 'K';
-  handles["L"] = 'L';
-  handles["M"] = 'M';
-  handles["N"] = 'N';
-  handles["O"] = 'O';
+  tile_handles["@"] = '@';
+  tile_handles["A"] = 'A';
+  tile_handles["B"] = 'B';
+  tile_handles["C"] = 'C';
+  tile_handles["D"] = 'D';
+  tile_handles["E"] = 'E';
+  tile_handles["F"] = 'F';
+  tile_handles["G"] = 'G';
+  tile_handles["H"] = 'H';
+  tile_handles["I"] = 'I';
+  tile_handles["J"] = 'J';
+  tile_handles["K"] = 'K';
+  tile_handles["L"] = 'L';
+  tile_handles["M"] = 'M';
+  tile_handles["N"] = 'N';
+  tile_handles["O"] = 'O';
 
   // Row 6.
-  handles["P"] = 'P';
-  handles["Q"] = 'Q';
-  handles["R"] = 'R';
-  handles["S"] = 'S';
-  handles["T"] = 'T';
-  handles["U"] = 'U';
-  handles["V"] = 'V';
-  handles["W"] = 'W';
-  handles["X"] = 'X';
-  handles["Y"] = 'Y';
-  handles["Z"] = 'Z';
-  handles["["] = '[';
-  handles["\\"] = '\\';
-  handles["]"] = ']';
-  handles["^"] = '^';
-  handles["_"] = '_';
+  tile_handles["P"] = 'P';
+  tile_handles["Q"] = 'Q';
+  tile_handles["R"] = 'R';
+  tile_handles["S"] = 'S';
+  tile_handles["T"] = 'T';
+  tile_handles["U"] = 'U';
+  tile_handles["V"] = 'V';
+  tile_handles["W"] = 'W';
+  tile_handles["X"] = 'X';
+  tile_handles["Y"] = 'Y';
+  tile_handles["Z"] = 'Z';
+  tile_handles["["] = '[';
+  tile_handles["\\"] = '\\';
+  tile_handles["]"] = ']';
+  tile_handles["^"] = '^';
+  tile_handles["_"] = '_';
 
   // Row 7.
-  handles["`"] = '`';
-  handles["a"] = 'a';
-  handles["b"] = 'b';
-  handles["c"] = 'c';
-  handles["d"] = 'd';
-  handles["e"] = 'e';
-  handles["f"] = 'f';
-  handles["g"] = 'g';
-  handles["h"] = 'h';
-  handles["i"] = 'i';
-  handles["j"] = 'j';
-  handles["k"] = 'k';
-  handles["l"] = 'l';
-  handles["m"] = 'm';
-  handles["n"] = 'n';
-  handles["o"] = 'o';
+  tile_handles["`"] = '`';
+  tile_handles["a"] = 'a';
+  tile_handles["b"] = 'b';
+  tile_handles["c"] = 'c';
+  tile_handles["d"] = 'd';
+  tile_handles["e"] = 'e';
+  tile_handles["f"] = 'f';
+  tile_handles["g"] = 'g';
+  tile_handles["h"] = 'h';
+  tile_handles["i"] = 'i';
+  tile_handles["j"] = 'j';
+  tile_handles["k"] = 'k';
+  tile_handles["l"] = 'l';
+  tile_handles["m"] = 'm';
+  tile_handles["n"] = 'n';
+  tile_handles["o"] = 'o';
 
   // Row 8.
-  handles["p"] = 'p';
-  handles["q"] = 'q';
-  handles["r"] = 'r';
-  handles["s"] = 's';
-  handles["t"] = 't';
-  handles["u"] = 'u';
-  handles["v"] = 'v';
-  handles["w"] = 'w';
-  handles["x"] = 'x';
-  handles["y"] = 'y';
-  handles["z"] = 'z';
-  handles["{"] = '{';
-  handles["|"] = '|';
-  handles["~"] = '~';
-//  handles[""] = '';
+  tile_handles["p"] = 'p';
+  tile_handles["q"] = 'q';
+  tile_handles["r"] = 'r';
+  tile_handles["s"] = 's';
+  tile_handles["t"] = 't';
+  tile_handles["u"] = 'u';
+  tile_handles["v"] = 'v';
+  tile_handles["w"] = 'w';
+  tile_handles["x"] = 'x';
+  tile_handles["y"] = 'y';
+  tile_handles["z"] = 'z';
+  tile_handles["{"] = '{';
+  tile_handles["|"] = '|';
+  tile_handles["~"] = '~';
+//  tile_handles[""] = '';
 
   // Row 9.
 
@@ -131,6 +131,10 @@ RHandles::RHandles() {
 
   // Initialise operators.
 
+}
+
+std::map<std::string, char> *RHandles::get_tile_handles() {
+  return &tile_handles;
 }
 
 RHandles::~RHandles() {
