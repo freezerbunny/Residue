@@ -58,7 +58,7 @@ bool RTile::drawString( int column, int row, int width, std::string str ) {
   int x = 0;
   int y = 0;
   for( std::string::iterator itr = str.begin(); itr != str.end(); ++itr ) {
-    if( cur_column > width ) {
+    if( width && cur_column > width ) {
       cur_column = 0;
       cur_row++;
     }

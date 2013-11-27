@@ -8,8 +8,7 @@
 #include "SDL_image.h"
 #include <stdio.h>
 
-#include "RTile.h"
-#include "RDefs.h"
+#include "Rinclude.h"
 
 int main( int argc, char **argv ) {
   // SDL INITIALISATION
@@ -88,8 +87,7 @@ int main( int argc, char **argv ) {
     SDL_SetRenderDrawColor( renderer, 0, 0, 0, 255 );
     SDL_RenderClear( renderer );
 
-    // Drawing tests.
-    tile_renderer->drawString(0, 0, 5, "Hello world!");
+    // Draw elements.
 
     // DRAWING ENDS HERE
 

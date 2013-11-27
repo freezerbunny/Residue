@@ -49,7 +49,7 @@ class RTile {
      *
      * \param column int The column to draw to.
      * \param row int The row to draw to.
-     * \param row width How many columns before the string is wrapped.
+     * \param width int How many columns before the string is wrapped. 0 means no wrapping.
      * \param kString std::string The string to draw.
      * \return bool True if drawing was successful.
      *
