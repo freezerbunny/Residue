@@ -20,11 +20,17 @@ int main( int argc, char **argv ) {
   // Create a new window
   SDL_Surface *screen = SDL_SetVideoMode( 640, 480, 16, SDL_HWSURFACE | SDL_DOUBLEBUF );
   if( !screen ) {
-    printf( "Unable to set 640x480 video: %s\n", SDL_GetError() );
+    printf( "Unable to set 640x480 video. SDL_SetVideoMode: %s\n", SDL_GetError() );
     return 1;
   }
 
   // Load tiles
+  SDL_Surface *tiles;
+  tiles = IMG_Load("resources/tiles/alloy_curses_12x12_alpha.png");
+  if(!tiles) {
+      printf("Could not load tileset. IMG_Load: %s\n", IMG_GetError());
+      // handle error
+  }
 
   // Program main loop
   bool done = false;
