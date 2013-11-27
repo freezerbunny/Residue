@@ -6,6 +6,10 @@
 
 #include "SDL.h"
 #include "SDL_image.h"
+#include <stdio.h>
+
+#define SCREEN_WIDTH 640
+#define SCREEN_HEIGHT 480
 
 int main( int argc, char **argv ) {
   // Initialize SDL video
@@ -18,19 +22,31 @@ int main( int argc, char **argv ) {
   atexit( SDL_Quit );
 
   // Create a new window
-  SDL_Surface *screen = SDL_SetVideoMode( 640, 480, 16, SDL_HWSURFACE | SDL_DOUBLEBUF );
-  if( !screen ) {
-    printf( "Unable to set 640x480 video. SDL_SetVideoMode: %s\n", SDL_GetError() );
+  SDL_Window *window = SDL_CreateWindow( "Residue", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED,
+                                         SCREEN_WIDTH, SCREEN_HEIGHT, 0 );
+  if( !window ) {
+    printf( "Unable to set 640x480 video: %s\n", SDL_GetError() );
     return 1;
   }
 
+  // Create a new renderer
+  SDL_Renderer *renderer = SDL_CreateRenderer( window, -1, SDL_RENDERER_SOFTWARE || SDL_RENDERER_ACCELERATED );
+  if( !renderer ) {
+    printf( "Could not initialise renderer: %s\n", SDL_GetError() );
+    return 1;
+  }
+
+
   // Load tiles
   SDL_Surface *tiles;
-  tiles = IMG_Load("resources/tiles/alloy_curses_12x12_alpha.png");
-  if(!tiles) {
-      printf("Could not load tileset. IMG_Load: %s\n", IMG_GetError());
-      // handle error
+  tiles = IMG_Load( "resources/tiles/alloy_curses_12x12_alpha.png" );
+  if( !tiles ) {
+    printf( "Could not load tileset: %s\n", IMG_GetError() );
+    return 1;
   }
+
+  // Create destination rect.
+//  SDL_Rect dstrect;
 
   // Program main loop
   bool done = false;
@@ -58,15 +74,22 @@ int main( int argc, char **argv ) {
     // DRAWING STARTS HERE
 
     // Clear screen
-    SDL_FillRect( screen, 0, SDL_MapRGB( screen->format, 0, 0, 0 ) );
+    SDL_SetRenderDrawColor( renderer, 0, 0, 0, 255 );
+    SDL_RenderClear( renderer );
+
+    // Blit test tiles.
 
     // DRAWING ENDS HERE
 
-    // Finally, update the screen
-    SDL_Flip( screen );
+    // Update the screen
+    SDL_RenderPresent( renderer );
+
+    // Wait until next execution.
+    SDL_Delay( 100 );
+
   } // End main loop
 
   // All is well!
-  printf( "Exited cleanly\n" );
+  printf( "Exited cleanly.\n" );
   return 0;
 }
