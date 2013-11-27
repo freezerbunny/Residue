@@ -17,6 +17,32 @@ RTile::RTile( SDL_Renderer *renderer, SDL_Texture *tiles ) {
   dstrect->w = TILE_W, dstrect->h = TILE_H;
 }
 
+bool RTile::setTileColour( Uint8 r, Uint8 g, Uint8 b ) {
+  if( SDL_SetTextureColorMod( tiles, r, g, b ) ) {
+    printf( "Unable to set tile colour: %s\n", SDL_GetError() );
+    return false;
+  }
+  return true;
+}
+
+//bool RTile::setTileColour( rcol::R_COL col ) {
+//  bool success = false;
+//  switch( col ) {
+//    case rcol::red:
+//      success = setTileColour(255, 0, 0);
+//      break;
+//    case rcol::green:
+//      success = setTileColour(0, 255, 0);
+//      break;
+//    case rcol::blue:
+//      success = setTileColour(0, 0, 255);
+//      break;
+//    default:
+//      success = setTileColour(255, 255, 255);
+//  }
+//  return success;
+//}
+
 bool RTile::drawTile( int column, int row, int c ) {
   // Check if row is within terminal limits.
   if( row < 0 || row > TERMINAL_ROWS ) {
@@ -27,6 +53,9 @@ bool RTile::drawTile( int column, int row, int c ) {
     printf( "Tried to draw out of bounds: %d,  %d\n", row, column );
     return false;
   }
+
+  // Set the draw mode.
+  SDL_SetRenderDrawBlendMode( renderer, SDL_BLENDMODE_BLEND );
 
   // DRAW THE TILE.
 
@@ -39,7 +68,10 @@ bool RTile::drawTile( int column, int row, int c ) {
   dstrect->y = row * TILE_H;
 
   // Copy to the renderer.
-  SDL_RenderCopy( renderer, tiles, srcrect, dstrect );
+  if( SDL_RenderCopy( renderer, tiles, srcrect, dstrect ) ) {
+    printf( "Unable to copy texture to renderer: %s\n", SDL_GetError() );
+    return false;
+  }
 
   return true;
 }
@@ -58,13 +90,55 @@ bool RTile::drawString( int column, int row, int width, std::string str ) {
   int x = 0;
   int y = 0;
   for( std::string::iterator itr = str.begin(); itr != str.end(); ++itr ) {
-    if( width && cur_column > width ) {
+    if( width && cur_column >= width ) {
       cur_column = 0;
       cur_row++;
     }
     x = cur_column + column;
     y = cur_row + row;
-    if ( !drawTile( x, y, *itr ) ) {
+    if( !drawTile( x, y, *itr ) ) {
+      return false;
+    }
+    cur_column++;
+  }
+  return true;
+}
+
+bool RTile::drawBackground( int column, int row, Uint8 r, Uint8 g, Uint8 b, Uint8 a ) {
+  // Initialise rect.
+  srcrect->x = column * TILE_W;
+  srcrect->y = row * TILE_H;
+
+  // Set the colour.
+  SDL_SetRenderDrawColor( renderer, r, g, b, a );
+
+  // Set the draw mode.
+  SDL_SetRenderDrawBlendMode( renderer, SDL_BLENDMODE_ADD );
+
+  // Draw the rect.
+  if( SDL_RenderFillRect( renderer, srcrect ) ) {
+    printf( "Unable to fill rect to renderer: %s\n", SDL_GetError() );
+    return false;
+  }
+  return true;
+}
+
+bool RTile::drawBackgroundArea(int column, int row, int width, int height,
+                               Uint8 r, Uint8 g, Uint8 b, Uint8 a) {
+  // Repeatedly call drawBackground instead.
+  int cur_column = 0;
+  int cur_row = 0;
+  int x = 0;
+  int y = 0;
+  int total_tiles = width * height;
+  for( int i = 0; i < total_tiles; i++ ) {
+    if( cur_column >= width ) {
+      cur_column = 0;
+      cur_row++;
+    }
+    x = cur_column + column;
+    y = cur_row + row;
+    if( !drawBackground( x, y, r, g, b, a ) ) {
       return false;
     }
     cur_column++;

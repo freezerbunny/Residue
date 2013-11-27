@@ -6,6 +6,7 @@
 
 #include "SDL.h"
 #include "SDL_image.h"
+
 #include <stdio.h>
 
 #include "Rinclude.h"
@@ -57,6 +58,11 @@ int main( int argc, char **argv ) {
 
   // Initialise tiles objects.
   RTile *tile_renderer = new RTile( renderer, texture );
+  RCol rcol;
+  rcol.init();
+
+  // Initialise variables.
+  int moo = 0;
 
   // MAIN LOOP STARTS HERE
   bool done = false;
@@ -87,7 +93,12 @@ int main( int argc, char **argv ) {
     SDL_SetRenderDrawColor( renderer, 0, 0, 0, 255 );
     SDL_RenderClear( renderer );
 
-    // Draw elements.
+    // Drawing tests.
+    moo++;
+    RString *rstr = new RString("Testing %d", moo);
+//    tile_renderer->setTileColour(rcol::HIGHGREEN);
+    tile_renderer->drawString(0, 0, 0, rstr->str());
+    tile_renderer->drawBackgroundArea(5, 5, 20, 5, 255, 255, 255, 255);
 
     // DRAWING ENDS HERE
 

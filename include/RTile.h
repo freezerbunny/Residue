@@ -25,6 +25,24 @@ class RTile {
      */
     RTile(SDL_Renderer *renderer, SDL_Texture *tiles);
 
+    /** \brief Tints all tiles to be drawn by the specified colour.
+     *
+     * \param r Uint8 The red component of the tint.
+     * \param g Uint8 The green component of the tint.
+     * \param b Uint8 The blue component of the tint.
+     * \return bool True if tint was successful.
+     *
+     */
+    bool setTileColour(Uint8 r, Uint8 g, Uint8 b);
+
+    /** \brief Tints all tiles to be drawn by the enumerated colour.
+     *
+     * \param col rcol::R_COL The enumerated colour to tint with.
+     * \return bool True if tint was successful.
+     *
+     */
+//    bool setTileColour(rcol::R_COL col);
+
     /** \brief Draws a tile to the screen from an alt-code.
      *
      * \param row int Horizontal position of the tile (left to right).
@@ -55,6 +73,35 @@ class RTile {
      *
      */
     bool drawString(int column, int row, int width, std::string str);
+
+    /** \brief Draws a background to the screen.
+     *
+     * \param column int The column to draw to.
+     * \param row int The row to draw to.
+     * \param r Uint8 The red component of the background.
+     * \param g Uint8 The green component of the background.
+     * \param b Uint8 The blue component of the background.
+     * \param a Uint8 The alpha component of the background.
+     * \return bool True if drawing was successful.
+     *
+     */
+    bool drawBackground(int column, int row, Uint8 r, Uint8 g, Uint8 b, Uint8 a);
+
+    /** \brief Draws a background to an area the screen.
+     *
+     * \param column int The column to draw to.
+     * \param row int The row to draw to.
+     * \param width int The width of the background.
+     * \param height int The height of the background.
+     * \param r Uint8 The red component of the background.
+     * \param g Uint8 The green component of the background.
+     * \param b Uint8 The blue component of the background.
+     * \param a Uint8 The alpha component of the background.
+     * \return bool True if drawing was successful.
+     *
+     */
+    bool drawBackgroundArea(int column, int row, int width, int height,
+                            Uint8 r, Uint8 g, Uint8 b, Uint8 a);
 
     /** \brief Macro function to get the alt-code of a character.
      *
