@@ -8,8 +8,15 @@
 #include "SDL_image.h"
 #include <stdio.h>
 
+#include "RTile.h"
+
 #define SCREEN_WIDTH 640
 #define SCREEN_HEIGHT 480
+
+#define TILES_WIDTH 192
+#define TILES_HEIGHT 192
+#define TILE_WIDTH 12
+#define TILE_HEIGHT 12
 
 int main( int argc, char **argv ) {
   // Initialize SDL video
@@ -38,17 +45,24 @@ int main( int argc, char **argv ) {
 
 
   // Load tiles
-  SDL_Surface *tiles;
-  tiles = IMG_Load( "resources/tiles/alloy_curses_12x12_alpha.png" );
-  if( !tiles ) {
+  SDL_Surface *tile_surface;
+  tile_surface = IMG_Load( "resources/tiles/alloy_curses_12x12_alpha.png" );
+  if( !tile_surface ) {
     printf( "Could not load tileset: %s\n", IMG_GetError() );
     return 1;
   }
 
-  // Create destination rect.
-//  SDL_Rect dstrect;
+  // Create texture from tiles.
+  SDL_Texture *texture;
+  texture = SDL_CreateTextureFromSurface( renderer, tile_surface );
+  if ( !texture ) {
+    printf( "Could not create texture from surface: %s\n", IMG_GetError() );
+  }
 
-  // Program main loop
+  // Initialise tiles class.
+  RTile tile_renderer = RTile( renderer, texture, TILE_WIDTH, TILE_HEIGHT );
+
+  // MAIN LOOP STARTS HERE
   bool done = false;
   while( !done ) {
     // Message processing loop
@@ -77,8 +91,6 @@ int main( int argc, char **argv ) {
     SDL_SetRenderDrawColor( renderer, 0, 0, 0, 255 );
     SDL_RenderClear( renderer );
 
-    // Blit test tiles.
-
     // DRAWING ENDS HERE
 
     // Update the screen
@@ -87,7 +99,9 @@ int main( int argc, char **argv ) {
     // Wait until next execution.
     SDL_Delay( 100 );
 
-  } // End main loop
+  } // MAIN LOOP ENDS HERE
+
+  // Call deconstructors.
 
   // All is well!
   printf( "Exited cleanly.\n" );

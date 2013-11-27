@@ -22,6 +22,10 @@
 
 # Folders
 bin/
+doc/
+doxygen/
+.objs/
+obj/
 
 # Project files
 *.cbp
