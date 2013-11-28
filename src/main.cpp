@@ -6,15 +6,22 @@
 
 #include "RInclude.h"
 
+// Global definitions.
+#include "RDefs.h"
+
+// Data objects.
 #include "REnums.h"
 #include "RStructs.h"
 #include "RHandles.h"
 #include "RCol.h"
-#include "RTile.h"
 
+// File I/O.
 #include "RParser.h"
 
-#include "RDefs.h"
+// Drawing.
+#include "RTile.h"
+
+// String manipulation.
 #include "RString.h"
 
 int main( int argc, char **argv ) {
@@ -69,7 +76,7 @@ int main( int argc, char **argv ) {
   // Create tile drawer.
   RTile *rtiler = new RTile( renderer, texture, colormap );
 
-  // Initialise variables.
+  // START MAIN MENU
 
   // MAIN LOOP STARTS HERE
   bool done = false;
@@ -101,14 +108,6 @@ int main( int argc, char **argv ) {
     SDL_RenderClear( renderer );
 
     // Start drawing.
-    rtiler->setTileColour("crimson");
-    rtiler->drawString(0, 0, 32, "Blood and glory");
-    rtiler->setTileColour("royalblue");
-    rtiler->drawString(0, 1, 32, "King and country");
-    RString message("Listen to my story");
-    rtiler->drawBackgroundArea(0, 2, message.str().length(), 1, "orange", 100);
-    rtiler->setTileColour("black");
-    rtiler->drawString(0, 2, 32, message.str());
 
     // DRAWING ENDS HERE
 
