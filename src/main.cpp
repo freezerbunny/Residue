@@ -105,6 +105,10 @@ int main( int argc, char **argv ) {
     rtiler->drawString(0, 0, 32, "Blood and glory");
     rtiler->setTileColour("royalblue");
     rtiler->drawString(0, 1, 32, "King and country");
+    RString message("Listen to my story");
+    rtiler->drawBackgroundArea(0, 2, message.str().length(), 1, "orange", 100);
+    rtiler->setTileColour("black");
+    rtiler->drawString(0, 2, 32, message.str());
 
     // DRAWING ENDS HERE
 

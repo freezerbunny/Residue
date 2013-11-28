@@ -10,7 +10,7 @@
  */
 class RTile {
   public:
-    /** \brief R_tile constructor.
+    /** \brief Rtile constructor.
      *
      * \param renderer SDL_Renderer* Handle to the renderer to draw on.
      * \param tiles SDL_Texture* Texture containing the tiles file.
@@ -21,10 +21,10 @@ class RTile {
 
     /** \brief Sets the color all tiles to be drawn by the specified colour.
      *
-     * \param r Uint8 The red component of the tint.
-     * \param g Uint8 The green component of the tint.
-     * \param b Uint8 The blue component of the tint.
-     * \return bool True if tint was successful.
+     * \param r Uint8 The red component.
+     * \param g Uint8 The green component.
+     * \param b Uint8 The blue component.
+     * \return bool True if coloring was successful.
      *
      */
     bool setTileColour( Uint8 r, Uint8 g, Uint8 b );
@@ -32,7 +32,7 @@ class RTile {
     /** \brief Sets the color all tiles to be drawn by the SDL_Color object.
      *
      * \param col SDL_Color The SDL_Color object to tint with.
-     * \return bool True if tint was successful.
+     * \return bool True if coloring was successful.
      *
      */
     bool setTileColour( SDL_Color col );
@@ -40,7 +40,7 @@ class RTile {
     /** \brief Sets the color all tiles to be drawn by the mapped color name.
      *
      * \param col std::string The name of the color to draw with.
-     * \return bool True if tint was successful.
+     * \return bool True if coloring was successful.
      *
      */
     bool setTileColour( std::string col );
@@ -89,10 +89,32 @@ class RTile {
      */
     bool drawBackground( int column, int row, Uint8 r, Uint8 g, Uint8 b, Uint8 a );
 
-    /** \brief Draws a background to the screen.
+    /** \brief Draws a background to the screen with the specified SDL_Color object.
      *
      * \param column int The column to draw to.
      * \param row int The row to draw to.
+     * \param col SDL_Color The SDL_Color to draw with.
+     * \return bool True if drawing was successful.
+     *
+     */
+    bool drawBackground( int column, int row, SDL_Color col );
+
+    /** \brief Draws a background the screen with the specified color handle.
+     *
+     * \param column int The column to draw to.
+     * \param row int The row to draw to.
+     * \param col std::string The name of the color to draw with.
+     * \return bool True if drawing was successful.
+     *
+     */
+    bool drawBackground( int column, int row, std::string col );
+
+    /** \brief Draws a background to an area the screen.
+     *
+     * \param column int The column to draw to.
+     * \param row int The row to draw to.
+     * \param width int The width of the background.
+     * \param height int The height of the background.
      * \param r Uint8 The red component of the background.
      * \param g Uint8 The green component of the background.
      * \param b Uint8 The blue component of the background.
@@ -100,7 +122,21 @@ class RTile {
      * \return bool True if drawing was successful.
      *
      */
-    bool drawBackground( int column, int row, Uint8 r, Uint8 g, Uint8 b, Uint8 a );
+    bool drawBackgroundArea( int column, int row, int width, int height,
+                             Uint8 r, Uint8 g, Uint8 b, Uint8 a );
+
+    /** \brief Draws a background to an area the screen.
+     *
+     * \param column int The column to draw to.
+     * \param row int The row to draw to.
+     * \param width int The width of the background.
+     * \param height int The height of the background.
+     * \param col SDL_Color The SDL_Color to draw with.
+     * \return bool True if drawing was successful.
+     *
+     */
+    bool drawBackgroundArea( int column, int row, int width, int height,
+                             SDL_Color col );
 
     /** \brief Draws a background to an area the screen.
      *
@@ -109,11 +145,12 @@ class RTile {
      * \param width int The width of the background.
      * \param height int The height of the background.
      * \param col std::string The name of the color to draw with.
+     * \param a Uint8 The alpha component of the background.
      * \return bool True if drawing was successful.
      *
      */
     bool drawBackgroundArea( int column, int row, int width, int height,
-                             std::string col );
+                             std::string col, Uint8 a );
 
     /** \brief Macro function to get the alt-code of a character.
      *

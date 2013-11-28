@@ -34,7 +34,7 @@ bool RTile::setTileColour( SDL_Color col ) {
 }
 
 bool RTile::setTileColour( std::string col ) {
-  if( !setTileColour( colormap->getColor(col) ) )
+  if( !setTileColour( colormap->getColor( col ) ) )
     return false;
 
   return true;
@@ -81,7 +81,7 @@ bool RTile::drawTile( int column, int row, std::string c ) {
 }
 
 bool RTile::drawString( int column, int row, int width, std::string str ) {
-  if ( !width ) {
+  if( !width ) {
     width = column - TERMINAL_COLUMNS;
   }
 
@@ -114,11 +114,25 @@ bool RTile::drawBackground( int column, int row, Uint8 r, Uint8 g, Uint8 b, Uint
   SDL_SetRenderDrawColor( renderer, r, g, b, a );
 
   // Set the draw mode.
-  SDL_SetRenderDrawBlendMode( renderer, SDL_BLENDMODE_ADD );
+  SDL_SetRenderDrawBlendMode( renderer, SDL_BLENDMODE_BLEND );
 
   // Draw the rect.
   if( SDL_RenderFillRect( renderer, srcrect ) ) {
     printf( "RTile: Unable to fill rect to renderer @ %s\n", SDL_GetError() );
+    return false;
+  }
+  return true;
+}
+
+bool RTile::drawBackground( int column, int row, SDL_Color col ) {
+  if( !drawBackground( column, row, col.r, col.g, col.b, col.a ) ) {
+    return false;
+  }
+  return true;
+}
+
+bool RTile::drawBackground( int column, int row, std::string col ) {
+  if( !drawBackground( column, row, colormap->getColor( col ) ) ) {
     return false;
   }
   return true;
@@ -144,6 +158,23 @@ bool RTile::drawBackgroundArea( int column, int row, int width, int height,
     }
     cur_column++;
   }
+  return true;
+}
+
+bool RTile::drawBackgroundArea( int column, int row, int width, int height,
+                                SDL_Color col ) {
+  if( !drawBackgroundArea( column, row, width, height,
+                           col.r, col.g, col.b, col.a ) )
+    return false;
+  return true;
+}
+
+bool RTile::drawBackgroundArea( int column, int row, int width, int height,
+                                std::string col, Uint8 a ) {
+  SDL_Color color = colormap->getColor(col);
+  color.a = a;
+  if ( !drawBackgroundArea( column, row, width, height, color ) )
+    return false;
   return true;
 }
 

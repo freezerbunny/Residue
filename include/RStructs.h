@@ -17,12 +17,4 @@ namespace RPackage {
   };
 }
 
-namespace RDrawUnit {
-  struct DrawUnit {
-    bool background;
-    std::string character;
-    SDL_Color color;
-  };
-}
-
 #endif // RSTRUCTS_H_INCLUDED
