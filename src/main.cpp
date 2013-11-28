@@ -4,7 +4,18 @@
 #include <stdlib.h>
 #endif
 
-#include "Rinclude.h"
+#include "RInclude.h"
+
+#include "REnums.h"
+#include "RStructs.h"
+#include "RHandles.h"
+#include "RCol.h"
+#include "RTile.h"
+
+#include "RParser.h"
+
+#include "RDefs.h"
+#include "RString.h"
 
 int main( int argc, char **argv ) {
   // SDL INITIALISATION
@@ -45,18 +56,18 @@ int main( int argc, char **argv ) {
   // Create texture from tiles.
   SDL_Texture *texture;
   texture = SDL_CreateTextureFromSurface( renderer, tile_surface );
-  if ( !texture ) {
+  if( !texture ) {
     printf( "Could not create texture from surface: %s\n", IMG_GetError() );
   }
 
+  // Load colormap.
+  RCol *colormap = new RCol;
+  colormap->parseColorFile( "resources/dat/colors.rdat" );
+
   // OBJECT INTIALISATION
 
-  // Initialise tiles objects.
-  RTile *tile_renderer = new RTile( renderer, texture );
-
-  // Initialise colormap.
-  RCol colormap;
-  colormap.readColorFile("resources/dat/colors.rdat");
+  // Create tile drawer.
+  RTile *rtiler = new RTile( renderer, texture, colormap );
 
   // Initialise variables.
 
@@ -89,10 +100,11 @@ int main( int argc, char **argv ) {
     SDL_SetRenderDrawColor( renderer, 0, 0, 0, 255 );
     SDL_RenderClear( renderer );
 
-    // Drawing tests.
-    RString *rstr = new RString("Hello world.");
-    tile_renderer->setTileColour(colormap.getColor("silver"));
-    tile_renderer->drawString(0, 0, 0, rstr->str());
+    // Start drawing.
+    rtiler->setTileColour("crimson");
+    rtiler->drawString(0, 0, 32, "Blood and glory");
+    rtiler->setTileColour("royalblue");
+    rtiler->drawString(0, 1, 32, "King and country");
 
     // DRAWING ENDS HERE
 
@@ -105,7 +117,7 @@ int main( int argc, char **argv ) {
   } // MAIN LOOP ENDS HERE
 
   // Call deconstructors.
-  delete tile_renderer;
+  delete rtiler;
 
   // All is well!
   printf( "Exited cleanly.\n" );

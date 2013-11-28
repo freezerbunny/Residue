@@ -26,6 +26,7 @@ doc/
 doxygen/
 .objs/
 obj/
+deprecated/
 
 # Project files
 *.cbp

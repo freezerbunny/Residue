@@ -4,7 +4,7 @@ RCol::RCol() {
   //ctor
 }
 
-bool RCol::readColorFile( std::string filepath ) {
+bool RCol::parseColorFile( std::string filepath ) {
   // Parse the colour file.
   RParser *parser = new RParser( filepath );
 

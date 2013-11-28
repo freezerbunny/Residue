@@ -9,4 +9,8 @@
 #define TILE_W 12
 #define TILE_H 12
 
+/**< Macros */
+#define RDRAW_TOP 1
+#define RDRAW_BOT 0
+
 #endif // RDEFS_H_INCLUDED

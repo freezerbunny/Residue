@@ -15,15 +15,4 @@
 #include <cstdio>
 #include <cmath>
 
-#include "REnums.h"
-#include "RStructs.h"
-#include "RHandles.h"
-
-#include "RParser.h"
-
-#include "RTile.h"
-#include "RDefs.h"
-#include "RString.h"
-#include "RCol.h"
-
 #endif // RINCLUDE_H_INCLUDED

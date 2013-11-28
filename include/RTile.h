@@ -2,8 +2,11 @@
 #define RTILE_H
 
 #include "RInclude.h"
+#include "RCol.h"
+#include "RHandles.h"
+#include "RDefs.h"
 
-/** \brief Used to draw individual tiles to the screen.
+/** \brief Used to draw tiles to the screen.
  */
 class RTile {
   public:
@@ -13,10 +16,10 @@ class RTile {
      * \param tiles SDL_Texture* Texture containing the tiles file.
      *
      */
-    RTile( SDL_Renderer *renderer, SDL_Texture *tiles );
+    RTile( SDL_Renderer *renderer, SDL_Texture *tiles, RCol *colormap );
     virtual ~RTile();
 
-    /** \brief Tints all tiles to be drawn by the specified colour.
+    /** \brief Sets the color all tiles to be drawn by the specified colour.
      *
      * \param r Uint8 The red component of the tint.
      * \param g Uint8 The green component of the tint.
@@ -26,13 +29,21 @@ class RTile {
      */
     bool setTileColour( Uint8 r, Uint8 g, Uint8 b );
 
-    /** \brief Tints all tiles to be drawn by the SDL_Color object.
+    /** \brief Sets the color all tiles to be drawn by the SDL_Color object.
      *
      * \param col SDL_Color The SDL_Color object to tint with.
      * \return bool True if tint was successful.
      *
      */
     bool setTileColour( SDL_Color col );
+
+    /** \brief Sets the color all tiles to be drawn by the mapped color name.
+     *
+     * \param col std::string The name of the color to draw with.
+     * \return bool True if tint was successful.
+     *
+     */
+    bool setTileColour( std::string col );
 
     /** \brief Draws a tile to the screen from an alt-code.
      *
@@ -78,12 +89,10 @@ class RTile {
      */
     bool drawBackground( int column, int row, Uint8 r, Uint8 g, Uint8 b, Uint8 a );
 
-    /** \brief Draws a background to an area the screen.
+    /** \brief Draws a background to the screen.
      *
      * \param column int The column to draw to.
      * \param row int The row to draw to.
-     * \param width int The width of the background.
-     * \param height int The height of the background.
      * \param r Uint8 The red component of the background.
      * \param g Uint8 The green component of the background.
      * \param b Uint8 The blue component of the background.
@@ -91,8 +100,20 @@ class RTile {
      * \return bool True if drawing was successful.
      *
      */
+    bool drawBackground( int column, int row, Uint8 r, Uint8 g, Uint8 b, Uint8 a );
+
+    /** \brief Draws a background to an area the screen.
+     *
+     * \param column int The column to draw to.
+     * \param row int The row to draw to.
+     * \param width int The width of the background.
+     * \param height int The height of the background.
+     * \param col std::string The name of the color to draw with.
+     * \return bool True if drawing was successful.
+     *
+     */
     bool drawBackgroundArea( int column, int row, int width, int height,
-                             Uint8 r, Uint8 g, Uint8 b, Uint8 a );
+                             std::string col );
 
     /** \brief Macro function to get the alt-code of a character.
      *
@@ -107,6 +128,8 @@ class RTile {
     SDL_Texture *tiles;
     SDL_Rect *srcrect;
     SDL_Rect *dstrect;
+
+    RCol *colormap;
 
     std::map<std::string, int> tile_handles;
 

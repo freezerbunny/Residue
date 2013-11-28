@@ -2,6 +2,7 @@
 #define RPARSE_H
 
 #include "RInclude.h"
+#include "RStructs.h"
 
 /** \brief A class used to parse ".rdat" files.
  */

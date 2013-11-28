@@ -2,6 +2,7 @@
 #define RCOL_H
 
 #include "RInclude.h"
+#include "RParser.h"
 
 /** \brief A macro class that maps colour names to RGB values.
  */
@@ -10,13 +11,13 @@ class RCol {
     RCol();
     virtual ~RCol();
 
-    /** \brief Initialises colour mappings from color rdat file.
+    /** \brief Parses colour mappings from a color rdat file.
      *
      * \param filepath std::string A path pointing to the file with colour mappings.
-     * \return bool Returns true if successful;
+     * \return bool Returns true if successful.
      *
      */
-    bool readColorFile( std::string filepath );
+    bool parseColorFile( std::string filepath );
 
     SDL_Color getColor( std::string name );
   protected:

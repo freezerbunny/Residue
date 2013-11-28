@@ -1,8 +1,9 @@
 #include "RTile.h"
 
-RTile::RTile( SDL_Renderer *renderer, SDL_Texture *tiles ) {
+RTile::RTile( SDL_Renderer *renderer, SDL_Texture *tiles, RCol *colormap ) {
   this->renderer = renderer;
   this->tiles = tiles;
+  this->colormap = colormap;
 
   // Mapping from string character to alt-code.
   RHandles *r_handles = new RHandles();
@@ -27,6 +28,13 @@ bool RTile::setTileColour( Uint8 r, Uint8 g, Uint8 b ) {
 
 bool RTile::setTileColour( SDL_Color col ) {
   if( !setTileColour( col.r, col.g, col.b ) )
+    return false;
+
+  return true;
+}
+
+bool RTile::setTileColour( std::string col ) {
+  if( !setTileColour( colormap->getColor(col) ) )
     return false;
 
   return true;
@@ -73,6 +81,10 @@ bool RTile::drawTile( int column, int row, std::string c ) {
 }
 
 bool RTile::drawString( int column, int row, int width, std::string str ) {
+  if ( !width ) {
+    width = column - TERMINAL_COLUMNS;
+  }
+
   // Repeatedly call drawTile to draw the string.
   int cur_column = 0;
   int cur_row = 0;
