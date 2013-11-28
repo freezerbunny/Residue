@@ -1,0 +1,126 @@
+## Template file demonstrating .rdat formatting.
+##
+## NAME@!VARS!FLAGS!DESCRIPTION[nested elements]TYPE^SUBTYPE;
+##
+## Vars start with text for ease of reading.
+## The real var is read after the :
+## Flags are in all-caps and separated by ,
+## They are read as strings, and custom mappings will
+## map them to their respective enumerator types if desired
+## These mappings will need to be defined in the source.
+##
+## Nested elements are parts within parts
+##
+## Parts are assumed to be oriented vertically
+## by height unit.
+## ie. upper arm, lower arm, hand
+## Positioning within a height unit is defined with the
+## location flags.
+##
+## Location flags:
+## FRONT, BACK, LEFT, RIGHT, TOP, BOTTOM, MID
+## Assumed from the viewpoint of the object
+## ie. their left, or their right
+##
+## Parts can also have a width and a length.
+## These will increase the span of the part.
+##
+## Functionally it means something such as a car
+## bonnet will be by two tiles wide (width:2).
+## The positioning of parts will assume the vertical
+## design, however these parts will only ever be
+## as high as their specified height.
+##
+## Objects that have the flag STACKS, ie. humans,
+## have their height defined by the number of stacked
+## elements.
+##
+## The 'height:' var will determine the height
+## of each element, and thus the total height of
+## the object.
+##
+## Objects that have the flag LIES, ie. cars, guns,
+## have their height defined by 'height:' aloned.
+##
+## An extent 1 is normal for a human.
+## An extent 6 is suitable for a car.
+## An extent of 0 is suitable for paper.
+##
+## If an object has neither LIES or STACKS,
+## it is assumed to have generic volume
+## and can always be contained in one tile.
+## These objects are best described by their volume.
+##
+## A 'volume:' is a float denoting the fraction of space
+## the object takes. A volume of 1.0 is the maximum.
+##
+## 'extent:' determines its volume within
+## a height unit.
+##
+## Define the midpoint of an object with the
+## the CENTER flag.
+## This will deem the positioning of a fallen
+## object's units.
+##
+## For reference, the height of a human is 7 units.
+##
+## If omitted, the width and length are assumed
+## to be 1.
+##
+## Parts nested within wide parts will need their
+## location specified, starting from x:0, y:0.
+## This will determine what tile they consume.
+##
+## The parser will wrap nested elements.
+## It is up to the specific deserialiser to
+## these elements appropriately.
+##
+## Nested elements will be contained in a vector
+## called 'nested_elements'.
+##
+## The last ! denotes the description of the part,
+## and the entire section will be returned as a string.
+##
+## Objects also have a type, declared last.
+## If the type is left missing, a null-type will be assumed.
+##
+## All objects are sub-types of the base object class
+## and should have a type declared, otherwise they are
+## treated as unusable clutter.
+##
+## These should be mapped by the deserialiser to
+## their appropriate enums.
+##
+## ACTOR: Something which generates actions of its own.
+## STATIC: Something which can never move, this is the default type.
+## DYNAMIC: Something which can move, ie. be picked up.
+##
+## There are also attachment types for nested objects.
+## These are defined with the 'bond:' integer.
+## This determines the strength of the link with its parent.
+## A bond of 0 is no strength and will be removed by any force.
+##
+## Some bonds are defined here for reference:
+##  skin: 15
+##  nylon: 45
+##  bone: 100
+##  copper: 70
+##  steel: 700
+##
+## For a more comprehensive list, see:
+## http://en.wikipedia.org/wiki/Ultimate_tensile_strength
+##
+Human@_!STACKS![
+  Head@     height:1!_[
+    scalp@_           !TOP;
+    face@_            !FRONT;
+  ];
+  Shoulder@ height:1  !_;
+  Chest@    height:1  !_;
+  Pelvis@   height:1  !CENTER;
+  Thigh@    height:1  !_;
+  Shin@     height:1  !_;
+  Feet@     height:1  !_;
+]ACTOR^BODY;
+Gun@_!_;
+Car@_!LIES;

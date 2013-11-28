@@ -1,6 +1,7 @@
 #ifndef RDEFS_H_INCLUDED
 #define RDEFS_H_INCLUDED
 
+/**< Screen definitions. */
 #define TERMINAL_ROWS 64
 #define TERMINAL_COLUMNS 48
 #define TILES_WIDTH 192

@@ -9,6 +9,8 @@
 #include <iostream>
 #include <fstream>
 
+/** \brief A macro class that maps colour names to RGB values.
+ */
 class RCol {
   public:
     RCol();
