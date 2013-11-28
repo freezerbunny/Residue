@@ -2,15 +2,14 @@
 #define RDEFS_H_INCLUDED
 
 /**< Screen definitions. */
-#define TERMINAL_ROWS 64
-#define TERMINAL_COLUMNS 48
+#define TERMINAL_COLUMNS 64
+#define TERMINAL_ROWS 48
 #define TILES_WIDTH 192
 #define TILES_HEIGHT 192
 #define TILE_W 12
 #define TILE_H 12
 
-/**< Macros */
-#define RDRAW_TOP 1
-#define RDRAW_BOT 0
+/**< Graphic definitions */
+#define FRAME_RATE 12
 
 #endif // RDEFS_H_INCLUDED

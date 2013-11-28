@@ -20,6 +20,11 @@
 
 // Drawing.
 #include "RTile.h"
+#include "RLimiter.h"
+#include "RHoldRelease.h"
+
+// User Interface
+#include "RMenu.h"
 
 // String manipulation.
 #include "RString.h"
@@ -35,8 +40,8 @@ int main( int argc, char **argv ) {
   atexit( SDL_Quit );
 
   // Create a new window
-  int screen_width = TERMINAL_ROWS * TILE_W;
-  int screen_height = TERMINAL_COLUMNS * TILE_H;
+  int screen_width = TERMINAL_COLUMNS * TILE_W;
+  int screen_height = TERMINAL_ROWS * TILE_H;
 
   SDL_Window *window = SDL_CreateWindow( "Residue", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED,
                                          screen_width, screen_height, 0 );
@@ -77,47 +82,53 @@ int main( int argc, char **argv ) {
   RTile *rtiler = new RTile( renderer, texture, colormap );
 
   // START MAIN MENU
+  RMenu *mainmenu = new RMenu( rtiler, 0, 0, TERMINAL_COLUMNS, RMenuType::MAINMENU );
+  mainmenu->addEntry("Do Nothing", "white", SDLK_d);
+  mainmenu->enter();
 
-  // MAIN LOOP STARTS HERE
-  bool done = false;
-  while( !done ) {
-    // Message processing loop
-    SDL_Event event;
-    while( SDL_PollEvent( &event ) ) {
-      // Check for messages
-      switch( event.type ) {
-          // Exit if the window is closed
-        case SDL_QUIT:
-          done = true;
-          break;
+  delete mainmenu;
+  // END MAIN MENU
 
-          // Check for keypresses
-        case SDL_KEYDOWN: {
-            // Exit if ESCAPE is pressed
-            if( event.key.keysym.sym == SDLK_ESCAPE )
-              done = true;
-            break;
-          }
-      }
-    }
-
-    // DRAWING STARTS HERE
-
-    // Clear screen
-    SDL_SetRenderDrawColor( renderer, 0, 0, 0, 255 );
-    SDL_RenderClear( renderer );
-
-    // Start drawing.
-
-    // DRAWING ENDS HERE
-
-    // Update the screen
-    SDL_RenderPresent( renderer );
-
-    // Wait until next execution.
-    SDL_Delay( 100 );
-
-  } // MAIN LOOP ENDS HERE
+//  // MAIN LOOP STARTS HERE
+//  bool done = false;
+//  while( !done ) {
+//    // Message processing loop
+//    SDL_Event event;
+//    while( SDL_PollEvent( &event ) ) {
+//      // Check for messages
+//      switch( event.type ) {
+//          // Exit if the window is closed
+//        case SDL_QUIT:
+//          done = true;
+//          break;
+//
+//          // Check for keypresses
+//        case SDL_KEYDOWN: {
+//            // Exit if ESCAPE is pressed
+//            if( event.key.keysym.sym == SDLK_ESCAPE )
+//              done = true;
+//            break;
+//          }
+//      }
+//    }
+//
+//    // DRAWING STARTS HERE
+//
+//    // Clear screen
+//    SDL_SetRenderDrawColor( renderer, 0, 0, 0, 255 );
+//    SDL_RenderClear( renderer );
+//
+//    // Start drawing.
+//
+//    // DRAWING ENDS HERE
+//
+//    // Update the screen
+//    SDL_RenderPresent( renderer );
+//
+//    // Wait until next execution.
+//    SDL_Delay( 100 );
+//
+//  } // MAIN LOOP ENDS HERE
 
   // Call deconstructors.
   delete rtiler;

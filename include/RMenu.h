@@ -4,6 +4,9 @@
 #include "RInclude.h"
 #include "REnums.h"
 #include "RTile.h"
+#include "RRand.h"
+#include "RLimiter.h"
+#include "RHoldRelease.h"
 
 /** \brief A class for creating menus that poll for user input until escaped.
  */
@@ -48,6 +51,11 @@ class RMenu {
     std::vector<RMenuEntry::Entry> entries;
     int current;/**< The current entry we have selected. */
 
+    RHoldRelease *holdrelease;
+    RRand *rrand;
+    int moverx;
+    int movery;
+    int glitched;
     bool drawMainMenu();
 };
 

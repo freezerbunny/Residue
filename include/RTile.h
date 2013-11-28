@@ -152,6 +152,11 @@ class RTile {
     bool drawBackgroundArea( int column, int row, int width, int height,
                              std::string col, Uint8 a );
 
+    /** \brief Flushes the draw buffer.
+     *
+     */
+    void flush(){SDL_RenderPresent( renderer );}
+
     /** \brief Macro function to get the alt-code of a character.
      *
      * \param s std::string The character wrapped in a string.
