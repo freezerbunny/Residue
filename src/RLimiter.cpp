@@ -14,7 +14,7 @@ void RLimiter::release() {
   elapsed = SDL_GetTicks() - start;
 
   unsigned int delay = ( 1000 / framerate_ ) - elapsed;
-  if ( int(delay) < 1000 / framerate_ )
+  if ( static_cast<int>( delay ) < 1000 / framerate_ )
     SDL_Delay( delay );
   ready = false;
   return;

@@ -15,7 +15,7 @@ void RHoldRelease::hold() {
 bool RHoldRelease::release() {
   elapsed = SDL_GetTicks() - start;
 
-  if( ready && int( elapsed ) > 1000 / RLimiter::get_rate() ) {
+  if( ready && static_cast<int>( elapsed ) > 1000 / RLimiter::get_rate() ) {
     ready = false;
     return true;
   }
