@@ -22,6 +22,8 @@
 ## Assumed from the viewpoint of the object
 ## ie. their left, or their right
 ##
+## MID is the default location.
+##
 ## Parts can also have a width and a length.
 ## These will increase the span of the part.
 ##
@@ -31,6 +33,9 @@
 ## design, however these parts will only ever be
 ## as high as their specified height.
 ##
+## If omitted, the width and length are assumed
+## to be 1.
+##
 ## Objects that have the flag STACKS, ie. humans,
 ## have their height defined by the number of stacked
 ## elements.
@@ -39,12 +44,10 @@
 ## of each element, and thus the total height of
 ## the object.
 ##
-## Objects that have the flag LIES, ie. cars, guns,
-## have their height defined by 'height:' aloned.
+## 1 is the default height.
 ##
-## An extent 1 is normal for a human.
-## An extent 6 is suitable for a car.
-## An extent of 0 is suitable for paper.
+## Objects that have the flag LIES, ie. cars, guns,
+## have their height defined by 'height:' alone.
 ##
 ## If an object has neither LIES or STACKS,
 ## it is assumed to have generic volume
@@ -52,10 +55,31 @@
 ## These objects are best described by their volume.
 ##
 ## A 'volume:' is a float denoting the fraction of space
-## the object takes. A volume of 1.0 is the maximum.
+## the object takes. A volume of 10.0 is the maximum space
+## a tile can take, however parts are assumed to consume
+## 1.0 volume at maximum (ie. 10 max-size parts per tile).
 ##
-## 'extent:' determines its volume within
-## a height unit.
+## Volume is not considered for nested parts, although
+## the volume of the entire object and nested parts
+## can be changed at will (e.g. adding items to a bag).
+##
+## 'covers:' denotes the percent of space an object
+## can cover. It will cover X number of volume parts
+## that are below it in the stack.
+##
+## Coverage of 0 means the object or part is treated
+## like a normal part and does not protect things below
+## it in the stack.
+##
+## The OUTER flag will denote a nested object that
+## covers the entire object, rather than simply
+## its nested parts. This is used mainly to cover
+## the first level of stacked elements without
+## adding additional height or complexity.
+##
+## Note that covers will take account of positioning.
+## And object with a position other than mid will only
+## cover in that direction.
 ##
 ## Define the midpoint of an object with the
 ## the CENTER flag.
@@ -63,9 +87,6 @@
 ## object's units.
 ##
 ## For reference, the height of a human is 7 units.
-##
-## If omitted, the width and length are assumed
-## to be 1.
 ##
 ## Parts nested within wide parts will need their
 ## location specified, starting from x:0, y:0.
@@ -102,25 +123,74 @@
 ##
 ## Some bonds are defined here for reference:
 ##  skin: 15
+##  cloth: 30
 ##  nylon: 45
-##  bone: 100
 ##  copper: 70
+##  bone: 100
 ##  steel: 700
+##
+## The default bond is 100.
 ##
 ## For a more comprehensive list, see:
 ## http://en.wikipedia.org/wiki/Ultimate_tensile_strength
+## http://www.engineeringtoolbox.com/density-solids-d_1265.html
 ##
-Human@_!STACKS![
-  Head@     height:1!_[
-    scalp@_           !TOP;
-    face@_            !FRONT;
+## 'density:' determines the relative strength of the object.
+## It is analogous to HP.
+##
+## Some densities are here for reference:
+##  air: 1
+##  hair: 2
+##  cloth: 30
+##  nylon: 30
+##  flesh: 256;
+##  leather 850
+##  wood: 700
+##  plastics: 1200
+##  steel: 7700
+##  iron: 7900
+##
+##  100 is the default density.
+##
+## For a comprehensive list, see:
+## http://en.wikipedia.org/wiki/Density#Various_materials
+##
+## This is also used when considering coverage, but
+## volume plays a part in this too.
+##
+## Objects with a 'LOOSE' flag are worn like clothing,
+## and their bond strength is reduced to 0 when an actor
+## or object deliberately attempts to remove it.
+##
+## Parts can also have an 'EXTENDS' flag.
+## This means it can be extended outward by its height.
+## Sub-parts will be extended too.
+##
+## For reference, about 2 height units equates to one
+## ground tile.
+##
+## If a part has both CENTER and EXTENDS, everything
+## above the part in the stack will be able to move
+## outward.
+##
+## Full details are documented in the code.
+##
+Human@volume:7.0!STACKS![
+  Head@!![
+    hair@covers:0.5, density:2!OUTER!"Hair that covers your face!";
+    face@volume:0.25!FRONT![
+      eyes@volume:0.1!!!;
+      nose@!!!;
+      mouth@!!!;
+    ];
+    ears@!!!;
   ];
-  Shoulder@ height:1  !_;
-  Chest@    height:1  !_;
-  Pelvis@   height:1  !CENTER;
-  Thigh@    height:1  !_;
-  Shin@     height:1  !_;
-  Feet@     height:1  !_;
+  Shoulders@!!!;
+  Chest@!!!;
+  Pelvis@!!!;
+  Thighs@!!!;
+  Shins@!!!;
+  Feet@!!!;
 ]ACTOR^BODY;
 Gun@_!_;
 Car@_!LIES;

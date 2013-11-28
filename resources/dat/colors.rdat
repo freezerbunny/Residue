@@ -1,0 +1,97 @@
+## Defines colour mappings between colour names and RGB values.
+## X11 format.
+##
+## Pink colors.
+pink@r:255, g:192, b:203;
+hotpink@r:255, g:182, b:193;
+deeppink@r:255, g:105, b:180;
+
+## Red colors.
+crimson@r:220, g:20, b:60;
+darkred@r:139, g:0, b:0;
+red@r:255, g:0, b:0;
+
+## Orange colors.
+orangered@r:255, g:69, b:0;
+tomato@r:255, g:99, b:71;
+orange@r:255, g:165, b:0;
+gold@r:255, g:215, b:0;
+
+## Yellow colors.
+yellow@r:255, g:255, b:0;
+lightyellow@r:255, g:255, b:224;
+moccassin@r:255, g:229, b:181;
+khaki@r:240, g:230, b:140;
+darkkhaki@r:189, g:183, b:107;
+
+## Brown colors.
+cornsilk@r:255, g:248, b:220;
+bisque@r:255, g:228, b:196;
+tan@r:210, g:180, b:140;
+rosybrown@r:188, b:143, g:143;
+sandybrown@r:244, g:164, b:96;
+goldenrod@r:218, g:165, b:32;
+darkgoldenrod@r:184, g:134, b:11;
+chocolate@r:210, g:105, b:30;
+saddlebrown@r:139, g:69, b:45;
+brown@r:164, g:42, b:42;
+
+## Green colors.
+darkolivegreen@r:85, g:107, b:47;
+olive@r:128, g:128, b:0;
+olivedrab@r:107, g:142, b:32;
+yellowgreen@r:154, g:205, b:50;
+lime@r:0, g:255, b:0;
+lightgreen@r:144, g:238, b:144;
+seagreen@r:46, g:139, b:87;
+forestgreen@r:34, g:139, b:34;
+green@r:0, g:128, b:0;
+darkgreen@r:0, g:100, b:0;
+
+## Cyan colors.
+cyan@r:0, g:255, b:255;
+lightcyan@r:0, g:255, b:255;
+aquamarine@r:127, g:255, b:212;
+turqoise@r:64, g:244, b:208;
+cadetblue@r:95, g:158, b:160;
+teal@r:0, g:128, b:128;
+
+## Blue colors.
+lightsteelblue@r:176, g:196, b:222;
+lightblue@r:173, g:216, b:230;
+skyblue@r:135, g:206, b:235;
+deepskyblue@r:0, g:191, b:255;
+dodgerblue@r:30, g:144, b:255;
+steelblue@r:70, g:130, b:180;
+royalblue@r:65, g:105, b:225;
+blue@r:0, g:0, b:255;
+darkblue@r:0, g:0, b:139;
+navy@r:0, g:0, b:128;
+midnightblue@r:25, g:25, b:112;
+
+## Purple colors.
+lavender@r:230, g:230, b:250;
+violet@r:238, g:130, b:238;
+magenta@r:255, g:0, b:255;
+purple@r:128, g:0, b:128;
+darkslateblue@r:72, g:61, b:139;
+
+# White colors.
+white@r:255, g:255, b:255;
+snow@r:255, g:250, b:250;
+honeydew@r:240, g:255, b:240;
+aliceblue@r:240, g:248, b:255;
+whitesmoke@r:245, g:245, b:245;
+seashell@r:255, g:245, b:238;
+floralwhite@r:255, g:250, b:240;
+ivory@r:255, g:255, b:240;
+lavenderblush@r:255, g:240, b:245;
+mistyrose@r:255, g:240, b:225;
+
+# Grey/Black colors.
+lightgrey@r:211, g:211, b:211;
+silver@r:192, g:192, b:192;
+darkgrey@r:169, g:169, b:169;
+grey@r:128, g:128, b:128;
+dimgrey@r:105, g:105, b:105;
+black@r:0, g:0, b:0;

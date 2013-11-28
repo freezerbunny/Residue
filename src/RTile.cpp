@@ -19,38 +19,27 @@ RTile::RTile( SDL_Renderer *renderer, SDL_Texture *tiles ) {
 
 bool RTile::setTileColour( Uint8 r, Uint8 g, Uint8 b ) {
   if( SDL_SetTextureColorMod( tiles, r, g, b ) ) {
-    printf( "Unable to set tile colour: %s\n", SDL_GetError() );
+    printf( "RTile: Unable to set tile colour @ %s\n", SDL_GetError() );
     return false;
   }
   return true;
 }
 
-//bool RTile::setTileColour( rcol::R_COL col ) {
-//  bool success = false;
-//  switch( col ) {
-//    case rcol::red:
-//      success = setTileColour(255, 0, 0);
-//      break;
-//    case rcol::green:
-//      success = setTileColour(0, 255, 0);
-//      break;
-//    case rcol::blue:
-//      success = setTileColour(0, 0, 255);
-//      break;
-//    default:
-//      success = setTileColour(255, 255, 255);
-//  }
-//  return success;
-//}
+bool RTile::setTileColour( SDL_Color col ) {
+  if( !setTileColour( col.r, col.g, col.b ) )
+    return false;
+
+  return true;
+}
 
 bool RTile::drawTile( int column, int row, int c ) {
   // Check if row is within terminal limits.
   if( row < 0 || row > TERMINAL_ROWS ) {
-    printf( "Tried to draw out of bounds: %d,  %d\n", row, column );
+    printf( "RTile: Tried to draw out of bounds @ %d,  %d\n", row, column );
     return false;
   }
   if( column < 0 || column > TERMINAL_COLUMNS ) {
-    printf( "Tried to draw out of bounds: %d,  %d\n", row, column );
+    printf( "RTile: Tried to draw out of bounds @ %d,  %d\n", row, column );
     return false;
   }
 
@@ -69,7 +58,7 @@ bool RTile::drawTile( int column, int row, int c ) {
 
   // Copy to the renderer.
   if( SDL_RenderCopy( renderer, tiles, srcrect, dstrect ) ) {
-    printf( "Unable to copy texture to renderer: %s\n", SDL_GetError() );
+    printf( "RTile: Unable to copy texture to renderer @ %s\n", SDL_GetError() );
     return false;
   }
 
@@ -117,14 +106,14 @@ bool RTile::drawBackground( int column, int row, Uint8 r, Uint8 g, Uint8 b, Uint
 
   // Draw the rect.
   if( SDL_RenderFillRect( renderer, srcrect ) ) {
-    printf( "Unable to fill rect to renderer: %s\n", SDL_GetError() );
+    printf( "RTile: Unable to fill rect to renderer @ %s\n", SDL_GetError() );
     return false;
   }
   return true;
 }
 
-bool RTile::drawBackgroundArea(int column, int row, int width, int height,
-                               Uint8 r, Uint8 g, Uint8 b, Uint8 a) {
+bool RTile::drawBackgroundArea( int column, int row, int width, int height,
+                                Uint8 r, Uint8 g, Uint8 b, Uint8 a ) {
   // Repeatedly call drawBackground instead.
   int cur_column = 0;
   int cur_row = 0;

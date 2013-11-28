@@ -1,8 +1,7 @@
 #ifndef RHANDLES_H
 #define RHANDLES_H
 
-#include <string>
-#include <map>
+#include "RInclude.h"
 
 /** \brief Initialises handles between macros and characters.
  */

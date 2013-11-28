@@ -1,10 +1,7 @@
 #ifndef RSTRING_H
 #define RSTRING_H
 
-#include <string>
-#include <cstdarg>
-#include <cstdio>
-#include <cstring>
+#include "RInclude.h"
 
 /** \brief A formatted string object.
  */
@@ -17,10 +14,9 @@ class RString {
      *
      */
     RString(std::string str, ...);
+    virtual ~RString();
 
     std::string str();/**< Returns the formatted string */
-
-    virtual ~RString();
   protected:
   private:
     char buffer[256];

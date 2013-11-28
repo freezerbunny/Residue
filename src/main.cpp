@@ -4,11 +4,6 @@
 #include <stdlib.h>
 #endif
 
-#include "SDL.h"
-#include "SDL_image.h"
-
-#include <stdio.h>
-
 #include "Rinclude.h"
 
 int main( int argc, char **argv ) {
@@ -58,11 +53,12 @@ int main( int argc, char **argv ) {
 
   // Initialise tiles objects.
   RTile *tile_renderer = new RTile( renderer, texture );
-  RCol rcol;
-  rcol.init();
+
+  // Initialise colormap.
+  RCol colormap;
+  colormap.readColorFile("resources/dat/colors.rdat");
 
   // Initialise variables.
-  int moo = 0;
 
   // MAIN LOOP STARTS HERE
   bool done = false;
@@ -94,11 +90,9 @@ int main( int argc, char **argv ) {
     SDL_RenderClear( renderer );
 
     // Drawing tests.
-    moo++;
-    RString *rstr = new RString("Testing %d", moo);
-//    tile_renderer->setTileColour(rcol::HIGHGREEN);
+    RString *rstr = new RString("Hello world.");
+    tile_renderer->setTileColour(colormap.getColor("silver"));
     tile_renderer->drawString(0, 0, 0, rstr->str());
-    tile_renderer->drawBackgroundArea(5, 5, 20, 5, 255, 255, 255, 255);
 
     // DRAWING ENDS HERE
 

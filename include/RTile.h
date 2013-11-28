@@ -1,17 +1,7 @@
 #ifndef RTILE_H
 #define RTILE_H
 
-#include <string>
-#include <map>
-#include <stdio.h>
-#include <cstdio>
-#include <sstream>
-#include <cmath>
-
-#include "SDL.h"
-
-#include "RHandles.h"
-#include "RDefs.h"
+#include "RInclude.h"
 
 /** \brief Used to draw individual tiles to the screen.
  */
@@ -23,7 +13,8 @@ class RTile {
      * \param tiles SDL_Texture* Texture containing the tiles file.
      *
      */
-    RTile(SDL_Renderer *renderer, SDL_Texture *tiles);
+    RTile( SDL_Renderer *renderer, SDL_Texture *tiles );
+    virtual ~RTile();
 
     /** \brief Tints all tiles to be drawn by the specified colour.
      *
@@ -33,15 +24,15 @@ class RTile {
      * \return bool True if tint was successful.
      *
      */
-    bool setTileColour(Uint8 r, Uint8 g, Uint8 b);
+    bool setTileColour( Uint8 r, Uint8 g, Uint8 b );
 
-    /** \brief Tints all tiles to be drawn by the enumerated colour.
+    /** \brief Tints all tiles to be drawn by the SDL_Color object.
      *
-     * \param col rcol::R_COL The enumerated colour to tint with.
+     * \param col SDL_Color The SDL_Color object to tint with.
      * \return bool True if tint was successful.
      *
      */
-//    bool setTileColour(rcol::R_COL col);
+    bool setTileColour( SDL_Color col );
 
     /** \brief Draws a tile to the screen from an alt-code.
      *
@@ -51,7 +42,7 @@ class RTile {
      * \return bool True if drawing was successful.
      *
      */
-    bool drawTile(int column, int row, int c);
+    bool drawTile( int column, int row, int c );
 
     /** \brief Draws a tile to the screen from a string.
      *
@@ -61,7 +52,7 @@ class RTile {
      * \return bool True if drawing was successful.
      *
      */
-    bool drawTile(int column, int row, std::string c);
+    bool drawTile( int column, int row, std::string c );
 
     /** \brief Draws a string to the screen, wrapping if it is too long.
      *
@@ -72,7 +63,7 @@ class RTile {
      * \return bool True if drawing was successful.
      *
      */
-    bool drawString(int column, int row, int width, std::string str);
+    bool drawString( int column, int row, int width, std::string str );
 
     /** \brief Draws a background to the screen.
      *
@@ -85,7 +76,7 @@ class RTile {
      * \return bool True if drawing was successful.
      *
      */
-    bool drawBackground(int column, int row, Uint8 r, Uint8 g, Uint8 b, Uint8 a);
+    bool drawBackground( int column, int row, Uint8 r, Uint8 g, Uint8 b, Uint8 a );
 
     /** \brief Draws a background to an area the screen.
      *
@@ -100,8 +91,8 @@ class RTile {
      * \return bool True if drawing was successful.
      *
      */
-    bool drawBackgroundArea(int column, int row, int width, int height,
-                            Uint8 r, Uint8 g, Uint8 b, Uint8 a);
+    bool drawBackgroundArea( int column, int row, int width, int height,
+                             Uint8 r, Uint8 g, Uint8 b, Uint8 a );
 
     /** \brief Macro function to get the alt-code of a character.
      *
@@ -109,9 +100,7 @@ class RTile {
      * \return int The alt-code of the character.
      *
      */
-    int get_code(std::string s);
-
-    virtual ~RTile();
+    int get_code( std::string s );
   protected:
   private:
     SDL_Renderer *renderer;
@@ -121,7 +110,7 @@ class RTile {
 
     std::map<std::string, int> tile_handles;
 
-    SDL_Point code_to_point(int kC);/**< Helper function to convert from a code to a SDL_Point */
+    SDL_Point code_to_point( int kC ); /**< Helper function to convert from a code to a SDL_Point */
 };
 
 #endif // R_TILE_H
