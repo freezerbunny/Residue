@@ -29,5 +29,6 @@ obj/
 
 # Project files
 *.cbp
+*.cbtemp
 *.layout
 *.depend
