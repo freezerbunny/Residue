@@ -20,7 +20,7 @@ int RRand::random( int base, int range ) {
 int RRand::steal( int base, int range ) {
   int rng = last % range + base;
   if ( range == lastrange )
-    printf("RRand: Warning. Stolen number may a duplicate @ %d\n", rng);
+    printf("RRand: Warning. Stolen number may be a duplicate @ %d\n", rng);
   return rng;
 }
 

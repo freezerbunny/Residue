@@ -4,10 +4,10 @@ RTitleScreen::RTitleScreen( RTiler *rtiler ) {
   this->rtiler = rtiler;
 
   mainmenu = new RMenu( rtiler, 0, TERMINAL_ROWS / 2, TERMINAL_COLUMNS, RMenuType::MAINMENU, this );
-  mainmenu_entry = { "DEBUG", "blue", SDLK_d };
+  mainmenu_entry = { "[ DEBUG ]", "silver", SDLK_d };
   mainmenu->addEntry( mainmenu_entry );
 
-  mainmenu_entry = { "Exit", "white", SDLK_ESCAPE };
+  mainmenu_entry = { "[ Exit ]", "silver", SDLK_ESCAPE };
   mainmenu->addEntry( mainmenu_entry );
 
   // Logo
@@ -104,11 +104,11 @@ bool RTitleScreen::drawMainMenu() {
 
   // Logo.
   std::stringstream logo;
-  logo << "### ### ### # ##  # # ###\n";
-  logo << "# # #   ##  # # # # # ## \n";
-  logo << "##  ##    # # # # # # #  \n";
-  logo << "# # ### ### # ### ### ###\n";
-  char line[26];
+  logo << "### ### ### ## ##  # # ###\n";
+  logo << "# # #   ##  ## # # # # ## \n";
+  logo << "##  ##    # ## # # # # #  \n";
+  logo << "# # ### ### ## ### ### ###\n";
+  char line[27];
   int row = 0;
   int left = TERMINAL_COLUMNS / 2 - 14;
   int top = TERMINAL_ROWS / 2 - 9;
@@ -126,7 +126,7 @@ bool RTitleScreen::drawMainMenu() {
   }
 
   rtiler->setTileColour( "aliceblue" );
-  while( logo.getline( line, 26 ) ) {
+  while( logo.getline( line, 27 ) ) {
     for( int i = 0; i < 26; i++ ) {
       if( line[i] == '#' ) {
         if( i == moverx && row == movery ) {
@@ -140,6 +140,8 @@ bool RTitleScreen::drawMainMenu() {
     }
     row++;
   }
+  rtiler->setTileColour( "silver" );
+  rtiler->drawCenteredString( TERMINAL_COLUMNS / 2, top + row + 2, "A cyberpunk reality.  " );
 
   return true;
 }

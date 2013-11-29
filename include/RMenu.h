@@ -63,7 +63,7 @@ class RMenu : public RDrawable {
     int maxstringlength;
 
     std::vector<RMenuEntry::Entry> entries;
-    int choice;/**< The current entry we have selected. */
+    unsigned int choice;/**< The current entry we have selected. */
 
     // Draw methods.
     bool drawMainMenu();

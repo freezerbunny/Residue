@@ -131,10 +131,6 @@ bool RTiler::drawTile( SDL_Point point, std::string c ) {
 }
 
 bool RTiler::drawString( int column, int row, int width, std::string str ) {
-  if( !width ) {
-    width = column - TERMINAL_COLUMNS;
-  }
-
   // Repeatedly call drawTile to draw the string.
   int cur_column = 0;
   int cur_row = 0;
@@ -153,6 +149,10 @@ bool RTiler::drawString( int column, int row, int width, std::string str ) {
     cur_column++;
   }
   return true;
+}
+
+bool RTiler::drawCenteredString( int column, int row, std::string str ) {
+  return drawString( column - str.length() / 2, row, 0, str );
 }
 
 bool RTiler::drawBackground( int column, int row, Uint8 r, Uint8 g, Uint8 b, Uint8 a ) {

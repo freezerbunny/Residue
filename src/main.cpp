@@ -84,47 +84,6 @@ int main( int argc, char **argv ) {
   delete titlescreen;
   // END TITLE SCREEN
 
-//  // MAIN LOOP STARTS HERE
-//  bool done = false;
-//  while( !done ) {
-//    // Message processing loop
-//    SDL_Event event;
-//    while( SDL_PollEvent( &event ) ) {
-//      // Check for messages
-//      switch( event.type ) {
-//          // Exit if the window is closed
-//        case SDL_QUIT:
-//          done = true;
-//          break;
-//
-//          // Check for keypresses
-//        case SDL_KEYDOWN: {
-//            // Exit if ESCAPE is pressed
-//            if( event.key.keysym.sym == SDLK_ESCAPE )
-//              done = true;
-//            break;
-//          }
-//      }
-//    }
-//
-//    // DRAWING STARTS HERE
-//
-//    // Clear screen
-//    SDL_SetRenderDrawColor( renderer, 0, 0, 0, 255 );
-//    SDL_RenderClear( renderer );
-//
-//    // Start drawing.
-//
-//    // DRAWING ENDS HERE
-//
-//    // Update the screen
-//    SDL_RenderPresent( renderer );
-//
-//    // Wait until next execution.
-//    SDL_Delay( 100 );
-//
-//  } // MAIN LOOP ENDS HERE
-
   // Call deconstructors.
   delete rtiler;
   delete colormap;

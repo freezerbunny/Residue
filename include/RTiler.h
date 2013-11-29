@@ -84,6 +84,16 @@ class RTiler {
      */
     bool drawString( int column, int row, int width, std::string str );
 
+    /** \brief Draws a centered string to the screen.
+     *
+     * \param column int The center column to draw to.
+     * \param row int The row to draw to.
+     * \param kString std::string The string to draw.
+     * \return bool True if drawing was successful.
+     *
+     */
+    bool drawCenteredString( int column, int row, std::string str );
+
     /** \brief Draws a background to the screen.
      *
      * \param column int The column to draw to.
