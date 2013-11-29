@@ -8,16 +8,16 @@
 
 /** \brief Used to draw tiles to the screen.
  */
-class RTile {
+class RTiler {
   public:
-    /** \brief Rtile constructor.
+    /** \brief RTiler constructor.
      *
      * \param renderer SDL_Renderer* Handle to the renderer to draw on.
-     * \param tiles SDL_Texture* Texture containing the tiles file.
+     * \param tiles SDL_Surface* Surface containing the tiles file.
      *
      */
-    RTile( SDL_Renderer *renderer, SDL_Texture *tiles, RCol *colormap );
-    virtual ~RTile();
+    RTiler( SDL_Window *window, SDL_Renderer *renderer, SDL_Surface *tiles, RCol *colormap );
+    virtual ~RTiler();
 
     /** \brief Sets the color all tiles to be drawn by the specified colour.
      *
@@ -57,13 +57,21 @@ class RTile {
 
     /** \brief Draws a tile to the screen from a string.
      *
-     * \param row int Horizontal position of the tile (left to right).
-     * \param column int Vertical position of the tile (top to bottom).
+     * \param column int Horizontal position of the tile (left to right).
+     * \param row int Vertical position of the tile (top to bottom).
      * \param kC std::string The character to draw.
      * \return bool True if drawing was successful.
      *
      */
     bool drawTile( int column, int row, std::string c );
+
+    /** \brief Draws a tile to the screen from a string.
+     *
+     * \param point SDL_Point The position on the screen to draw on.
+     * \return bool True if drawing was successful.
+     *
+     */
+    bool drawTile( SDL_Point point, std::string c );
 
     /** \brief Draws a string to the screen, wrapping if it is too long.
      *
@@ -152,6 +160,36 @@ class RTile {
     bool drawBackgroundArea( int column, int row, int width, int height,
                              std::string col, Uint8 a );
 
+    /** \brief Clears the screen to black.
+     *
+     * \return void
+     *
+     */
+    void clear();
+
+    /** \brief Flushes the draw buffer.
+     *
+     */
+    void flush(){SDL_RenderPresent( renderer );}
+
+
+    /** \brief Checks if the indicated location can be drawn to.
+     *
+     * \param column int The column to test.
+     * \param row int The row to test.
+     * \return bool True if we can draw there.
+     *
+     */
+    bool outOfBounds( int column, int row );
+
+    /** \brief Checks if the indicated location can be drawn to.
+     *
+     * \param point SDL_Point The point to test.
+     * \return bool True if we can draw there.
+     *
+     */
+    bool outOfBounds( SDL_Point point );
+
     /** \brief Macro function to get the alt-code of a character.
      *
      * \param s std::string The character wrapped in a string.
@@ -161,15 +199,18 @@ class RTile {
     int get_code( std::string s );
   protected:
   private:
+    SDL_Window *window;
     SDL_Renderer *renderer;
-    SDL_Texture *tiles;
+    SDL_Surface *tiles;
+    SDL_Texture *texture;
     SDL_Rect *srcrect;
     SDL_Rect *dstrect;
 
     RCol *colormap;
-
     std::map<std::string, int> tile_handles;
 
+    bool safe;
+    bool generateTextures();
     SDL_Point code_to_point( int kC ); /**< Helper function to convert from a code to a SDL_Point */
 };
 

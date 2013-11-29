@@ -6,15 +6,30 @@
 
 #include "RInclude.h"
 
+// Global definitions.
+#include "RDefs.h"
+
+// Data objects.
 #include "REnums.h"
 #include "RStructs.h"
 #include "RHandles.h"
 #include "RCol.h"
-#include "RTile.h"
 
+// File I/O.
 #include "RParser.h"
 
-#include "RDefs.h"
+// Drawing.
+#include "RTiler.h"
+
+// Utility
+#include "RLimiter.h"
+#include "RHoldRelease.h"
+
+// User Interface
+#include "RMenu.h"
+#include "RTitleScreen.h"
+
+// String manipulation.
 #include "RString.h"
 
 int main( int argc, char **argv ) {
@@ -28,8 +43,8 @@ int main( int argc, char **argv ) {
   atexit( SDL_Quit );
 
   // Create a new window
-  int screen_width = TERMINAL_ROWS * TILE_W;
-  int screen_height = TERMINAL_COLUMNS * TILE_H;
+  int screen_width = TERMINAL_COLUMNS * TILE_W;
+  int screen_height = TERMINAL_ROWS * TILE_H;
 
   SDL_Window *window = SDL_CreateWindow( "Residue", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED,
                                          screen_width, screen_height, 0 );
@@ -39,7 +54,7 @@ int main( int argc, char **argv ) {
   }
 
   // Create a new renderer
-  SDL_Renderer *renderer = SDL_CreateRenderer( window, -1, SDL_RENDERER_SOFTWARE || SDL_RENDERER_ACCELERATED );
+  SDL_Renderer *renderer = SDL_CreateRenderer( window, -1, SDL_RENDERER_ACCELERATED & SDL_RENDERER_SOFTWARE );
   if( !renderer ) {
     printf( "Could not initialise renderer: %s\n", SDL_GetError() );
     return 1;
@@ -53,13 +68,6 @@ int main( int argc, char **argv ) {
     return 1;
   }
 
-  // Create texture from tiles.
-  SDL_Texture *texture;
-  texture = SDL_CreateTextureFromSurface( renderer, tile_surface );
-  if( !texture ) {
-    printf( "Could not create texture from surface: %s\n", IMG_GetError() );
-  }
-
   // Load colormap.
   RCol *colormap = new RCol;
   colormap->parseColorFile( "resources/dat/colors.rdat" );
@@ -67,58 +75,55 @@ int main( int argc, char **argv ) {
   // OBJECT INTIALISATION
 
   // Create tile drawer.
-  RTile *rtiler = new RTile( renderer, texture, colormap );
+  RTiler *rtiler = new RTiler( window, renderer, tile_surface, colormap );
 
-  // Initialise variables.
+  // START TITLE SCREEN
+  RTitleScreen *titlescreen = new RTitleScreen( rtiler  );
+  titlescreen->enter();
 
-  // MAIN LOOP STARTS HERE
-  bool done = false;
-  while( !done ) {
-    // Message processing loop
-    SDL_Event event;
-    while( SDL_PollEvent( &event ) ) {
-      // Check for messages
-      switch( event.type ) {
-          // Exit if the window is closed
-        case SDL_QUIT:
-          done = true;
-          break;
+  delete titlescreen;
+  // END TITLE SCREEN
 
-          // Check for keypresses
-        case SDL_KEYDOWN: {
-            // Exit if ESCAPE is pressed
-            if( event.key.keysym.sym == SDLK_ESCAPE )
-              done = true;
-            break;
-          }
-      }
-    }
-
-    // DRAWING STARTS HERE
-
-    // Clear screen
-    SDL_SetRenderDrawColor( renderer, 0, 0, 0, 255 );
-    SDL_RenderClear( renderer );
-
-    // Start drawing.
-    rtiler->setTileColour("crimson");
-    rtiler->drawString(0, 0, 32, "Blood and glory");
-    rtiler->setTileColour("royalblue");
-    rtiler->drawString(0, 1, 32, "King and country");
-    RString message("Listen to my story");
-    rtiler->drawBackgroundArea(0, 2, message.str().length(), 1, "orange", 100);
-    rtiler->setTileColour("black");
-    rtiler->drawString(0, 2, 32, message.str());
-
-    // DRAWING ENDS HERE
-
-    // Update the screen
-    SDL_RenderPresent( renderer );
-
-    // Wait until next execution.
-    SDL_Delay( 100 );
-
-  } // MAIN LOOP ENDS HERE
+//  // MAIN LOOP STARTS HERE
+//  bool done = false;
+//  while( !done ) {
+//    // Message processing loop
+//    SDL_Event event;
+//    while( SDL_PollEvent( &event ) ) {
+//      // Check for messages
+//      switch( event.type ) {
+//          // Exit if the window is closed
+//        case SDL_QUIT:
+//          done = true;
+//          break;
+//
+//          // Check for keypresses
+//        case SDL_KEYDOWN: {
+//            // Exit if ESCAPE is pressed
+//            if( event.key.keysym.sym == SDLK_ESCAPE )
+//              done = true;
+//            break;
+//          }
+//      }
+//    }
+//
+//    // DRAWING STARTS HERE
+//
+//    // Clear screen
+//    SDL_SetRenderDrawColor( renderer, 0, 0, 0, 255 );
+//    SDL_RenderClear( renderer );
+//
+//    // Start drawing.
+//
+//    // DRAWING ENDS HERE
+//
+//    // Update the screen
+//    SDL_RenderPresent( renderer );
+//
+//    // Wait until next execution.
+//    SDL_Delay( 100 );
+//
+//  } // MAIN LOOP ENDS HERE
 
   // Call deconstructors.
   delete rtiler;
