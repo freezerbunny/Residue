@@ -19,12 +19,15 @@
 #include "RParser.h"
 
 // Drawing.
-#include "RTile.h"
+#include "RTiler.h"
+
+// Utility
 #include "RLimiter.h"
 #include "RHoldRelease.h"
 
 // User Interface
 #include "RMenu.h"
+#include "RTitleScreen.h"
 
 // String manipulation.
 #include "RString.h"
@@ -51,7 +54,7 @@ int main( int argc, char **argv ) {
   }
 
   // Create a new renderer
-  SDL_Renderer *renderer = SDL_CreateRenderer( window, -1, SDL_RENDERER_SOFTWARE || SDL_RENDERER_ACCELERATED );
+  SDL_Renderer *renderer = SDL_CreateRenderer( window, -1, SDL_RENDERER_ACCELERATED );
   if( !renderer ) {
     printf( "Could not initialise renderer: %s\n", SDL_GetError() );
     return 1;
@@ -65,13 +68,6 @@ int main( int argc, char **argv ) {
     return 1;
   }
 
-  // Create texture from tiles.
-  SDL_Texture *texture;
-  texture = SDL_CreateTextureFromSurface( renderer, tile_surface );
-  if( !texture ) {
-    printf( "Could not create texture from surface: %s\n", IMG_GetError() );
-  }
-
   // Load colormap.
   RCol *colormap = new RCol;
   colormap->parseColorFile( "resources/dat/colors.rdat" );
@@ -79,15 +75,14 @@ int main( int argc, char **argv ) {
   // OBJECT INTIALISATION
 
   // Create tile drawer.
-  RTile *rtiler = new RTile( renderer, texture, colormap );
+  RTiler *rtiler = new RTiler( window, renderer, tile_surface, colormap );
 
-  // START MAIN MENU
-  RMenu *mainmenu = new RMenu( rtiler, 0, 0, TERMINAL_COLUMNS, RMenuType::MAINMENU );
-  mainmenu->addEntry("Do Nothing", "white", SDLK_d);
-  mainmenu->enter();
+  // START TITLE SCREEN
+  RTitleScreen *titlescreen = new RTitleScreen( rtiler  );
+  titlescreen->enter();
 
-  delete mainmenu;
-  // END MAIN MENU
+  delete titlescreen;
+  // END TITLE SCREEN
 
 //  // MAIN LOOP STARTS HERE
 //  bool done = false;

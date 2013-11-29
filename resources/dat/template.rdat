@@ -1,9 +1,12 @@
 ## Template file demonstrating .rdat formatting.
 ##
-## NAME@!VARS!FLAGS!DESCRIPTION[nested elements]TYPE^SUBTYPE;
+## ID@!VARS!STRINGS!FLAGS[nested elements]TYPE^SUBTYPE;
 ##
 ## Vars start with text for ease of reading.
 ## The real var is read after the :
+##
+## Strings are similarly read after the :
+##
 ## Flags are in all-caps and separated by ,
 ## They are read as strings, and custom mappings will
 ## map them to their respective enumerator types if desired
@@ -93,14 +96,11 @@
 ## This will determine what tile they consume.
 ##
 ## The parser will wrap nested elements.
-## It is up to the specific deserialiser to
+## It is up to the specific deserialiser to use
 ## these elements appropriately.
 ##
 ## Nested elements will be contained in a vector
 ## called 'nested_elements'.
-##
-## The last ! denotes the description of the part,
-## and the entire section will be returned as a string.
 ##
 ## Objects also have a type, declared last.
 ## If the type is left missing, a null-type will be assumed.

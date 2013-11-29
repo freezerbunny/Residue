@@ -14,6 +14,7 @@ class RRand {
      *
      */
     RRand( unsigned int seed );
+    RRand();
     virtual ~RRand();
 
     /** \brief Generates a random number within the specified range.
@@ -24,6 +25,24 @@ class RRand {
      *
      */
     int random( int base, int range );
+
+    /** \brief Rolls a dice, returning the value we landed on.
+     *
+     * \param number int The number of dice to roll.
+     * \param sides int The number of sides per dice.
+     * \return int The total for the current roll.
+     *
+     */
+    int roll ( int number, int sides );
+
+    /** \brief Tries the specified chance, returning true if good.
+     *
+     * \param numerator int The chances.
+     * \param denominator int The total roll.
+     * \return bool True if the chance was good.
+     *
+     */
+    bool chance ( int numerator, int denominator );
   protected:
   private:
     unsigned int seed;

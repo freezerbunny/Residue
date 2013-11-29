@@ -94,4 +94,5 @@ silver@r:192, g:192, b:192;
 darkgrey@r:169, g:169, b:169;
 grey@r:128, g:128, b:128;
 dimgrey@r:105, g:105, b:105;
+almostblack@r:64, g:64, b:64;
 black@r:0, g:0, b:0;

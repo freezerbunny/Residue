@@ -25,7 +25,7 @@ bool RCol::parseColorFile( std::string filepath ) {
       color.b = pack.vars[2];
       color.a = 255;
 
-      color_map[pack.name] = color;
+      color_map[pack.id] = color;
     }
   }
 

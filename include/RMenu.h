@@ -2,15 +2,18 @@
 #define RMENU_H
 
 #include "RInclude.h"
+#include "RDefs.h"
 #include "REnums.h"
-#include "RTile.h"
+#include "RTiler.h"
+#include "RDrawable.h"
 #include "RRand.h"
 #include "RLimiter.h"
 #include "RHoldRelease.h"
+#include "RInput.h"
 
 /** \brief A class for creating menus that poll for user input until escaped.
  */
-class RMenu {
+class RMenu : public RDrawable {
   public:
     /** \brief Constructor for a new menu.
      *
@@ -21,42 +24,38 @@ class RMenu {
      * \param type RMenuType::MenuType The menu type.
      *
      */
-    RMenu( RTile *rtiler, int row, int column, int width, RMenuType::MenuType type );
+    RMenu( RTiler *rtiler, int row, int column, int width, RMenuType::MenuType type, RDrawable *drawable );
     virtual ~RMenu();
 
     /** \brief Adds a new entry to the menu.
      *
-     * \param name std::string The name of the entry.
-     * \param col std::string The color of the entry (default white).
-     * \param key SDL_Keycode The key to select the entry.
+     * \param entry RMenuEntry::Entry The menu entry to add to this menu.
      * \return bool True if successful.
      *
      */
-    bool addEntry( std::string name, std::string col, SDL_Keycode key );
+    bool addEntry( RMenuEntry::Entry entry );
 
     /** \brief Enters the menu, taking control until exited.
      *
-     * \return int The choice selected by the user. 0 if no choice was made.
+     * \param drawable RDrawable* A drawable object to be invoked when this menu draws.
+     * \return RMenuEntry::Entry The menu entry of the choice entered by the player.
      *
      */
-    int enter();
+    RMenuEntry::Entry enter();
+
+    void invoke();
   protected:
   private:
-    RTile *rtiler;
+    RTiler *rtiler;
+    RInput *rinput;
+    RDrawable *drawable;
     RMenuType::MenuType type;
     int row;
     int col;
     int width;
 
     std::vector<RMenuEntry::Entry> entries;
-    int current;/**< The current entry we have selected. */
-
-    RHoldRelease *holdrelease;
-    RRand *rrand;
-    int moverx;
-    int movery;
-    int glitched;
-    bool drawMainMenu();
+    int choice;/**< The current entry we have selected. */
 };
 
 #endif // RMENU_H

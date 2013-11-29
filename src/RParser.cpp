@@ -29,13 +29,11 @@ RPackage::Package RParser::getNext() {
   // Package assumed invalid until all parsing passes.
   pack.valid = false;
 
-  std::string name;
+  std::string id;
 
   std::vector<int> variables;
+  std::vector<std::string> strings;
   std::vector<std::string> flags;
-  std::string description;
-
-
 
   // PARSING BEGINS.
   // Parse the package.
@@ -68,10 +66,10 @@ RPackage::Package RParser::getNext() {
     return pack;
   }
 
-  // Now grab the name.
+  // Now grab the id.
   char *part = new char[64];
   package.get( part, 64, '@' );
-  pack.name = part;
+  pack.id = part;
 
   // Now grab the vars.
   std::stringstream varstream;

@@ -30,5 +30,6 @@ obj/
 # Project files
 *.cbp
 *.cbtemp
+*.cscope_file_list
 *.layout
 *.depend
