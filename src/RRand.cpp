@@ -6,11 +6,21 @@ RRand::RRand( unsigned int seed ) {
 }
 
 RRand::RRand() {
-  seed = 0;
+  seed = time(NULL);
+  srand (seed);
 }
 
 int RRand::random( int base, int range ) {
-  int rng = rand() % range + base;
+  last = rand();
+  lastrange = range;
+  int rng = last % range + base;
+  return rng;
+}
+
+int RRand::steal( int base, int range ) {
+  int rng = last % range + base;
+  if ( range == lastrange )
+    printf("RRand: Warning. Stolen number may a duplicate @ %d\n", rng);
   return rng;
 }
 

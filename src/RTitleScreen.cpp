@@ -54,7 +54,7 @@ bool RTitleScreen::drawMainMenu() {
   if( release ) {
     if( particles.size() + backparticles.size() < maxparticles && rng->chance( 1, 12 ) ) {
       // Create new particles.
-      int newparticles = rng->random( 1, 3 );
+      int newparticles = rng->steal( 1, 3 );
       for( int i = 0; i < newparticles; i++ ) {
         // Construct new particles.
         RTitleParticle particle( TERMINAL_COLUMNS, TERMINAL_ROWS,
@@ -66,7 +66,7 @@ bool RTitleScreen::drawMainMenu() {
       }
     }
   }
-  int linger = rng->random(1, 11);
+  int linger = rng->steal(1, 11);
   // Iterate our particles and draw them.
   SDL_Point particle_point;
   rtiler->setTileColour( "almostblack" );
@@ -83,6 +83,7 @@ bool RTitleScreen::drawMainMenu() {
     // Destroy the particle.
     if( itr->died() ) {
       backparticles.erase( itr );
+      itr--;
     }
   }
   rtiler->setTileColour( "darkgrey" );
@@ -99,6 +100,7 @@ bool RTitleScreen::drawMainMenu() {
     // Destroy the particle.
     if( itr->died() ) {
       particles.erase( itr );
+      itr--;
     }
   }
 
@@ -115,7 +117,7 @@ bool RTitleScreen::drawMainMenu() {
 
   if( release ) {
     glitched = rng->random( 0, 25 );
-    moverx += rng->random( -1, 3 );
+    moverx += rng->steal( -1, 3 );
     movery += rng->random( -1, 3 );
     if( moverx < 0 || moverx > 25 )
       moverx = 0;
