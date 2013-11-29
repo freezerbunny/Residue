@@ -166,10 +166,18 @@ bool RTiler::drawBackground( int column, int row, Uint8 r, Uint8 g, Uint8 b, Uin
   // Set the draw mode.
   SDL_SetRenderDrawBlendMode( renderer, SDL_BLENDMODE_BLEND );
 
+  // Check if it's safe to copy.
+  if( !( SDL_GetWindowFlags( window ) & SDL_WINDOW_INPUT_FOCUS ) ) {
+    safe = false;
+  } else if( !safe ) {
+    generateTextures();
+  }
   // Draw the rect.
-  if( SDL_RenderFillRect( renderer, srcrect ) ) {
-    printf( "RTiler: Unable to fill rect to renderer @ %s\n", SDL_GetError() );
-    return false;
+  if( safe ) {
+    if( SDL_RenderFillRect( renderer, srcrect ) ) {
+      printf( "RTiler: Unable to fill rect to renderer @ %s\n", SDL_GetError() );
+      return false;
+    }
   }
   return true;
 }
@@ -181,8 +189,10 @@ bool RTiler::drawBackground( int column, int row, SDL_Color col ) {
   return true;
 }
 
-bool RTiler::drawBackground( int column, int row, std::string col ) {
-  if( !drawBackground( column, row, colormap->getColor( col ) ) ) {
+bool RTiler::drawBackground( int column, int row, std::string col, Uint8 a ) {
+  SDL_Color color = colormap->getColor( col );
+  color.a = a;
+  if( !drawBackground( column, row, color ) ) {
     return false;
   }
   return true;

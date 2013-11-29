@@ -3,10 +3,11 @@
 RTitleScreen::RTitleScreen( RTiler *rtiler ) {
   this->rtiler = rtiler;
 
-  mainmenu = new RMenu( rtiler, 0, 0, 60, RMenuType::MAINMENU, this );
-  mainmenu_entry.name = "Exit";
-  mainmenu_entry.color = "white";
-  mainmenu_entry.key = SDLK_ESCAPE;
+  mainmenu = new RMenu( rtiler, 0, TERMINAL_ROWS / 2, TERMINAL_COLUMNS, RMenuType::MAINMENU, this );
+  mainmenu_entry = { "DEBUG", "blue", SDLK_d };
+  mainmenu->addEntry( mainmenu_entry );
+
+  mainmenu_entry = { "Exit", "white", SDLK_ESCAPE };
   mainmenu->addEntry( mainmenu_entry );
 
   // Logo
@@ -42,9 +43,6 @@ void RTitleScreen::invoke() {
 }
 
 bool RTitleScreen::drawMainMenu() {
-  // Clear screen
-  rtiler->clear();
-
   // HOLD LIMITER.
   holdrelease->hold();
   bool release = holdrelease->release();
@@ -112,7 +110,7 @@ bool RTitleScreen::drawMainMenu() {
   logo << "# # ### ### # ### ### ###\n";
   char line[26];
   int row = 0;
-  int left = TERMINAL_COLUMNS / 2 - 13;
+  int left = TERMINAL_COLUMNS / 2 - 14;
   int top = TERMINAL_ROWS / 2 - 9;
 
   if( release ) {
@@ -142,9 +140,6 @@ bool RTitleScreen::drawMainMenu() {
     }
     row++;
   }
-
-  // Update the screen
-  rtiler->flush();
 
   return true;
 }

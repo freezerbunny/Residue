@@ -127,6 +127,8 @@ int main( int argc, char **argv ) {
 
   // Call deconstructors.
   delete rtiler;
+  delete colormap;
+  delete tile_surface;
 
   // All is well!
   printf( "Exited cleanly.\n" );

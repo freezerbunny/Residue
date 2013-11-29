@@ -6,7 +6,7 @@ RRand::RRand( unsigned int seed ) {
 }
 
 RRand::RRand() {
-  seed = time(NULL);
+  seed = time(nullptr);
   srand (seed);
 }
 

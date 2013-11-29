@@ -18,14 +18,14 @@ class RMenu : public RDrawable {
     /** \brief Constructor for a new menu.
      *
      * \param rtiler RTile* The drawing agent.
-     * \param row int The top left row.
      * \param column int The top left column.
+     * \param row int The top left row.
      * \param width int The width of the menu.
      * \param type RMenuType::MenuType The menu type.
       * \param drawable RDrawable* A drawable object to be invoked when this menu draws.
      *
      */
-    RMenu( RTiler *rtiler, int row, int column, int width, RMenuType::MenuType type, RDrawable *drawable );
+    RMenu( RTiler *rtiler, int column, int row, int width, RMenuType::MenuType type, RDrawable *drawable );
     virtual ~RMenu();
 
     /** \brief Adds a new entry to the menu.
@@ -43,6 +43,13 @@ class RMenu : public RDrawable {
      */
     RMenuEntry::Entry enter();
 
+    /** \brief Draws the current menu to the screen.
+     *
+     * \return bool True if drawing was successful.
+     *
+     */
+    bool draw();
+
     void invoke();
   protected:
   private:
@@ -53,9 +60,13 @@ class RMenu : public RDrawable {
     int row;
     int col;
     int width;
+    int maxstringlength;
 
     std::vector<RMenuEntry::Entry> entries;
     int choice;/**< The current entry we have selected. */
+
+    // Draw methods.
+    bool drawMainMenu();
 };
 
 #endif // RMENU_H

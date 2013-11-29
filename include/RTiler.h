@@ -112,10 +112,11 @@ class RTiler {
      * \param column int The column to draw to.
      * \param row int The row to draw to.
      * \param col std::string The name of the color to draw with.
+    * \param a Uint8 The alpha component of the background.
      * \return bool True if drawing was successful.
      *
      */
-    bool drawBackground( int column, int row, std::string col );
+    bool drawBackground( int column, int row, std::string col, Uint8 a );
 
     /** \brief Draws a background to an area the screen.
      *

@@ -2,7 +2,7 @@
 
 RInput::RInput( bool mapped ) {
   this->mapped = mapped;
-  drawable = NULL;
+  drawable = nullptr;
 
   limiter = new RLimiter( FRAME_RATE );
 }
