@@ -14,7 +14,6 @@ RMenu::RMenu( RTiler *rtiler, int column, int row, int width, RMenuType::MenuTyp
 }
 
 bool RMenu::addEntry( RMenuEntry::Entry entry ) {
-  maxstringlength += entry.name.length();
   entries.push_back( entry );
   return true;
 }
@@ -48,17 +47,15 @@ bool RMenu::drawMainMenu() {
   int middle = col + width / 2 + 1;
 
   // Draw text for every entry.
-  int strlength;
-  int pos = middle - ( maxstringlength + 2 * ( entries.size() ) ) / 2;
+  int currow = row;
   for( std::vector<RMenuEntry::Entry>::iterator it = entries.begin();
        it != entries.end(); ++it ) {
 
-    strlength = it->name.length();
     if( it != entries.begin() )
-      pos += strlength + 2;
-    rtiler->drawBackgroundArea( pos, row, strlength, 1, "black", 255 );
+      currow++;
+    rtiler->drawBackgroundArea( middle - it->name.length() / 2, currow, width, 1, "black", 255 );
     rtiler->setTileColour( "aliceblue" );
-    rtiler->drawString( pos, row, strlength, it->name );
+    rtiler->drawString( middle - it->name.length(), currow, width, it->name );
   }
   return true;
 }
