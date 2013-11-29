@@ -43,7 +43,7 @@ void RTitleScreen::invoke() {
 
 bool RTitleScreen::drawMainMenu() {
   // Clear screen
-  rtiler->drawBackgroundArea( 0, 0, TERMINAL_COLUMNS, TERMINAL_ROWS, "black", 255 );
+  rtiler->clear();
 
   // HOLD LIMITER.
   holdrelease->hold();

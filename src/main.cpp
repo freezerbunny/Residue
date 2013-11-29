@@ -54,7 +54,7 @@ int main( int argc, char **argv ) {
   }
 
   // Create a new renderer
-  SDL_Renderer *renderer = SDL_CreateRenderer( window, -1, SDL_RENDERER_ACCELERATED );
+  SDL_Renderer *renderer = SDL_CreateRenderer( window, -1, SDL_RENDERER_ACCELERATED & SDL_RENDERER_SOFTWARE );
   if( !renderer ) {
     printf( "Could not initialise renderer: %s\n", SDL_GetError() );
     return 1;

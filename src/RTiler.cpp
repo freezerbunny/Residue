@@ -23,9 +23,12 @@ RTiler::RTiler( SDL_Window *window, SDL_Renderer *renderer, SDL_Surface *tiles, 
   generateTextures();
 }
 
-bool RTiler::clear() {
-  SDL_SetRenderDrawColor( renderer, 0, 0, 0, 255 );
-  SDL_RenderClear( renderer );
+void RTiler::clear() {
+  if( SDL_GetWindowFlags( window ) & SDL_WINDOW_INPUT_FOCUS ) {
+    SDL_SetRenderDrawColor( renderer, 0, 0, 0, 255 );
+    SDL_RenderClear( renderer );
+  }
+  return;
 }
 
 bool RTiler::generateTextures() {
@@ -34,7 +37,6 @@ bool RTiler::generateTextures() {
     printf( "Could not create texture from surface: %s\n", IMG_GetError() );
     return false;
   }
-  printf( "RTiler: Generated new textures.\n" );
   safe = true;
   return true;
 }
@@ -98,8 +100,6 @@ bool RTiler::drawTile( int column, int row, int c ) {
 
   // Check if it's safe to copy.
   if( !( SDL_GetWindowFlags( window ) & SDL_WINDOW_INPUT_FOCUS ) ) {
-    if( safe )
-      printf( "RTiler: Drawing is potentially unsafe.\n" );
     safe = false;
   } else if( !safe ) {
     generateTextures();
