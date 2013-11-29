@@ -22,6 +22,7 @@ class RMenu : public RDrawable {
      * \param column int The top left column.
      * \param width int The width of the menu.
      * \param type RMenuType::MenuType The menu type.
+      * \param drawable RDrawable* A drawable object to be invoked when this menu draws.
      *
      */
     RMenu( RTiler *rtiler, int row, int column, int width, RMenuType::MenuType type, RDrawable *drawable );
@@ -37,7 +38,6 @@ class RMenu : public RDrawable {
 
     /** \brief Enters the menu, taking control until exited.
      *
-     * \param drawable RDrawable* A drawable object to be invoked when this menu draws.
      * \return RMenuEntry::Entry The menu entry of the choice entered by the player.
      *
      */
