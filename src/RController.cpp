@@ -2,7 +2,7 @@
 
 RController::RController( RTiler *rtiler ) {
   this->rtiler = rtiler;
-  printf("RController: Created new controller.\n");
+  printf("RController: Creating controller.\n");
 
   // Create model, observer, and interface.
   dictionary = new RDictionary( "resources/dat/entities.rdat" );
@@ -12,6 +12,7 @@ RController::RController( RTiler *rtiler ) {
 }
 
 RController::~RController() {
+  printf("RController: Destroying controller.\n");
   // Save the game.
   // Delete interface, observer, and model.
   delete interface;

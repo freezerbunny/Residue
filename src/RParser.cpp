@@ -86,9 +86,6 @@ RPackage::Package RParser::getNext() {
     col = 0;
 
     while( package.get( c ) ) {
-      if( c == '!' ) {
-        break;
-      }
       if( c == ',' || c == ';' || c == '!' ) {
         part[col] = '\0';
         break;
@@ -101,10 +98,11 @@ RPackage::Package RParser::getNext() {
         start = true;
         // Push back the current handle.
         handle[handlecol] = '\0';
-        pack.mappings[handle] = id;
+        if ( level < 2 )
+          pack.mappings[handle] = id;
         continue;
       }
-      if( !start && c != '@' && c != ' ' ) {
+      if( !start && c != '@' && c != ' ' && level < 2 ) {
         handle[handlecol] = c;
         handlecol++;
       }
