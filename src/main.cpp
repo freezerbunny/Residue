@@ -32,10 +32,13 @@
 // String manipulation.
 #include "RString.h"
 
+// Game.
+#include "RController.h"
+
 int main( int argc, char **argv ) {
   // SDL INITIALISATION
   if( SDL_Init( SDL_INIT_VIDEO ) < 0 ) {
-    printf( "Unable to init SDL: %s\n", SDL_GetError() );
+    printf( "main: Unable to init SDL: %s\n", SDL_GetError() );
     return 1;
   }
 
@@ -49,14 +52,14 @@ int main( int argc, char **argv ) {
   SDL_Window *window = SDL_CreateWindow( "Residue", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED,
                                          screen_width, screen_height, 0 );
   if( !window ) {
-    printf( "Unable to set video: %s\n", SDL_GetError() );
+    printf( "main: Unable to set video: %s\n", SDL_GetError() );
     return 1;
   }
 
   // Create a new renderer
   SDL_Renderer *renderer = SDL_CreateRenderer( window, -1, SDL_RENDERER_ACCELERATED & SDL_RENDERER_SOFTWARE );
   if( !renderer ) {
-    printf( "Could not initialise renderer: %s\n", SDL_GetError() );
+    printf( "main: Could not initialise renderer: %s\n", SDL_GetError() );
     return 1;
   }
 
@@ -64,7 +67,7 @@ int main( int argc, char **argv ) {
   SDL_Surface *tile_surface;
   tile_surface = IMG_Load( "resources/tiles/alloy_curses_12x12_alpha.png" );
   if( !tile_surface ) {
-    printf( "Could not load tileset: %s\n", IMG_GetError() );
+    printf( "main: Could not load tileset: %s\n", IMG_GetError() );
     return 1;
   }
 
@@ -76,13 +79,23 @@ int main( int argc, char **argv ) {
 
   // Create tile drawer.
   RTiler *rtiler = new RTiler( window, renderer, tile_surface, colormap );
+  // Declare game objects.
+  RController *controller;
 
   // START TITLE SCREEN
   RTitleScreen *titlescreen = new RTitleScreen( rtiler  );
-  titlescreen->enter();
+  switch ( titlescreen->enter() ) {
+    case SDLK_d:  // Begin debug.
+      // ENTER GAME.
+      controller = new RController( rtiler );
+      delete controller;
+      // EXIT GAME
+      break;
+    case SDLK_ESCAPE:
+      break;
+  } // END TITLE SCREEN
 
   delete titlescreen;
-  // END TITLE SCREEN
 
   // Call deconstructors.
   delete rtiler;
@@ -90,6 +103,6 @@ int main( int argc, char **argv ) {
   delete tile_surface;
 
   // All is well!
-  printf( "Exited cleanly.\n" );
+  printf( "main: Exited cleanly.\n" );
   return 0;
 }

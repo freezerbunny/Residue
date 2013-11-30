@@ -22,19 +22,24 @@ RTitleScreen::RTitleScreen( RTiler *rtiler ) {
   holdrelease = new RHoldRelease( 6 );
 }
 
-bool RTitleScreen::enter() {
+SDL_Keycode RTitleScreen::enter() {
   bool done = false;
   RMenuEntry::Entry choice;
   while( !done ) {
     // Enter the main menu.
     choice = mainmenu->enter();
     switch( choice.key ) {
+      case SDLK_d:
+        done = true;
+        break;
       case SDLK_ESCAPE:
         done = true;
         break;
+      default:
+        break;
     }
   }
-  return true;
+  return choice.key;
 }
 
 void RTitleScreen::invoke() {

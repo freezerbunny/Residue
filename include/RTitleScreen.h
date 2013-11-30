@@ -20,10 +20,10 @@ class RTitleScreen : public RDrawable {
 
     /** \brief Enters the title screen which then assumes control.
      *
-     * \return bool Returns true if successful.
+     * \return SDL_Keycode The keycode of the selected choice.
      *
      */
-    bool enter();
+    SDL_Keycode enter();
 
     /** \brief Invokes the draw function of the title screen.
      *
