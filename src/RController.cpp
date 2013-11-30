@@ -5,6 +5,7 @@ RController::RController( RTiler *rtiler ) {
   printf("RController: Created new controller.\n");
 
   // Create model, observer, and interface.
+  dictionary = new RDictionary( "resources/dat/entities.rdat" );
   model = new RModel;
   observer = new RObserver;
   interface = new RInterface;
@@ -16,4 +17,5 @@ RController::~RController() {
   delete interface;
   delete observer;
   delete model;
+  delete dictionary;
 }

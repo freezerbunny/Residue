@@ -29,12 +29,6 @@ RPackage::Package RParser::getNext() {
   // Package assumed invalid until all parsing passes.
   pack.valid = false;
 
-  std::string id;
-
-  std::vector<int> variables;
-  std::vector<std::string> strings;
-  std::vector<std::string> flags;
-
   // PARSING BEGINS.
   // Parse the package.
   char c;
@@ -67,42 +61,79 @@ RPackage::Package RParser::getNext() {
   }
 
   // Now grab the id.
-  char *part = new char[64];
+  char *part = new char[256];
   package.get( part, 64, '@' );
   pack.id = part;
 
-  // Now grab the vars.
-  std::stringstream varstream;
+  // Ready the map handle.
+  char *handle;
+
+  // Now grab data.
+  // 0: vars, 1: strings, 2: flags.
+  int level = 0;
 
   bool start;
   int col;
-  while( package.peek() != -1 ) {
+  int handlecol;
+  unsigned int id = 0;
+  while( package.peek() != EOF ) {
     start = false;
     delete []part;
-    part = new char[64];
+    delete []handle;
+    part = new char[256];
+    handle = new char[64];
+    handlecol = 0;
     col = 0;
 
     while( package.get( c ) ) {
-      if( c == ',' )
+      if( c == ',' || c == ';' ) {
+        part[col] = '\0';
         break;
+      }
       if( start ) {
         part[col] = c;
         col++;
       }
       if( c == ':' ) {
         start = true;
+        // Push back the current handle.
+        handle[handlecol] = '\0';
+        pack.mappings[handle] = id;
         continue;
+      }
+      if( !start && c != '@' && c != ' ' ) {
+        handle[handlecol] = c;
+        handlecol++;
       }
     }
     if( start ) {
-      if( c == '!' )
+      // Vars.
+      if( level == 0 ) {
+        pack.vars.push_back( atoi( part ) );
+        id++;
+      }
+      // Strings.
+      else if( level == 1 ) {
+        pack.strings.push_back( part );
+        id++;
+      }
+      // Flags.
+      else {
+        pack.flags.push_back( part );
+        id++;
+      }
+      if( c == ';' )
         break;
-      pack.vars.push_back( atoi( part ) );
+      if( c == '!' ) {
+        level++;
+        continue;
+      }
     }
   }
   pack.valid = true;
 
   delete []part;
+  delete []handle;
 
   return pack;
 }

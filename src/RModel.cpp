@@ -1,9 +1,15 @@
 #include "RModel.h"
 
 RModel::RModel() {
-  //ctor
+  // Create blocks.
+  RBlock *block = new RBlock;
+  blocks.push_back(*block);
+  printf("RModel: Pushed back a block.\n");
 }
 
 RModel::~RModel() {
-  //dtor
+  // Save blocks.
+  // Destroy them.
+  blocks.clear();
+  printf("RModel: Destroyed blocks.\n");
 }
