@@ -21,7 +21,7 @@ class RDictionary {
     RParser *parser;
     void parse();
 
-    std::map<std::hash<std::string>, unsigned int> mappings;
+    std::map<std::string, unsigned int> mappings;
     std::vector<REntity> entities;
 };
 

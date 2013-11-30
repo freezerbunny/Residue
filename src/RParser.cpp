@@ -86,7 +86,11 @@ RPackage::Package RParser::getNext() {
     col = 0;
 
     while( package.get( c ) ) {
-      if( c == ',' || c == ';' ) {
+      if( c == '!' ) {
+        level++;
+        break;
+      }
+      if( c == ',' || c == '!' || c == ';' ) {
         part[col] = '\0';
         break;
       }

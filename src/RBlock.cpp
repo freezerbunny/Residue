@@ -2,13 +2,13 @@
 
 RBlock::RBlock() {
   // Generate bits.
-  REntity entity;
-  for( int x = 0; x < 256; x++ ) {
-    for( int y = 0; y < 256; y++ ) {
-      bits[x][y].entities.push_back(entity);
-    }
-  }
-  printf( "RBlock: Generated bits.\n" );
+//  REntity entity;
+//  for( int x = 0; x < 256; x++ ) {
+//    for( int y = 0; y < 256; y++ ) {
+//      bits[x][y].entities.push_back(entity);
+//    }
+//  }
+//  printf( "RBlock: Generated bits.\n" );
 }
 
 void RBlock::setBit( unsigned char x, unsigned char y, RBit::Bit bit ) {
