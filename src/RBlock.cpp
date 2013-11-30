@@ -1,17 +1,13 @@
 #include "RBlock.h"
 
-RBlock::RBlock() {
-  // Generate bits.
-//  REntity entity;
-//  for( int x = 0; x < 256; x++ ) {
-//    for( int y = 0; y < 256; y++ ) {
-//      bits[x][y].entities.push_back(entity);
-//    }
-//  }
-//  printf( "RBlock: Generated bits.\n" );
+RBlock::RBlock( unsigned int x, unsigned int y ) {
+  this->x = x;
+  this->y = y;
 }
 
 void RBlock::setBit( unsigned char x, unsigned char y, RBit::Bit bit ) {
+  bit.x = x;
+  bit.y = y;
   bits[x][y] = bit;
   return;
 }

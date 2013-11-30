@@ -6,7 +6,7 @@ RController::RController( RTiler *rtiler ) {
 
   // Create model, observer, and interface.
   dictionary = new RDictionary( "resources/dat/entities.rdat" );
-  model = new RModel;
+  model = new RModel( dictionary );
   observer = new RObserver;
   interface = new RInterface;
 }

@@ -8,7 +8,13 @@
  */
 class RBlock {
   public:
-    RBlock();
+    /** \brief Constructs a block with the specified coordinates.
+     *
+     * \param x unsigned int The x position.
+     * \param y unsigned int The y position.
+     *
+     */
+    RBlock( unsigned int x, unsigned int y );
     virtual ~RBlock();
 
     /** \brief Sets the bit at that location with the bit specified by the parameters.
@@ -29,9 +35,17 @@ class RBlock {
      *
      */
     RBit::Bit getBit( unsigned char x, unsigned char y );
+
+    unsigned int posx() { return x; }/**< Returns the block's x coordinate. */
+    unsigned int posy() { return y; }/**< Returns the block's y coordinate. */
   protected:
   private:
+    // Our individual bits.
     RBit::Bit bits[256][256];
+
+    // Our coordinates.
+    unsigned int x;
+    unsigned int y;
 };
 
 #endif // RBLOCK_H

@@ -1,4 +1,15 @@
 ## Basic entity definitions.
 ##
 ## The ground we stand on.
-ground@!name:ground, description:Something to stand on.!f:SURFACE;
+ground@height:0!
+      name:ground,
+        description:Something to stand on.,
+        character:.,
+        color:grey,!
+        f:TERRAIN;
+player@height:7!
+      name:player,
+        description:It's you\!,
+        character:@,
+        color:white,!
+        f:ACTOR;

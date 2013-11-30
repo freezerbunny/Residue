@@ -2,12 +2,12 @@
 #define RENTITY_H
 
 #include "RInclude.h"
+#include "RModel.h"
 
 namespace RLet {
   struct Let {/**< A structure containing the drawable information of an object or effect. */
     std::string character;
     std::string color;
-    int priority;/**< Objects with higher priorities are drawn on top of others. */
   };
 }
 
@@ -27,13 +27,29 @@ class REntity {
     REntity( std::string id, std::map<std::string, unsigned int> mappings,
              std::vector<int> vars, std::vector<std::string> strings, std::vector<std::string> flags );
     virtual ~REntity();
+
+    /** \brief Sets the entity's model.
+     *
+     * \param model RModel* A pointer to the model to set.
+     * \return void
+     *
+     */
+    void setModel( RModel *model ) { this->model = model; }
   protected:
   private:
+    RModel *model;
+    unsigned int blockx;
+    unsigned int blocky;
+    unsigned char x;
+    unsigned char y;
+
     std::string id;
     std::map<std::string, unsigned int> mappings;
     std::vector<int> vars;
     std::vector<std::string> strings;
     std::vector<std::string> flags;
+
+    std::vector<REntity> entities;
 
     RLet::Let graphlet;
 };

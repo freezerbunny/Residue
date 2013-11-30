@@ -32,9 +32,11 @@ RMenuEntry::Entry RMenu::enter() {
       case SDLK_KP_ENTER:
         done = true;
         break;
+      case SDLK_LEFT:
       case SDLK_KP_4:
         choice++;
         break;
+      case SDLK_RIGHT:
       case SDLK_KP_6:
         choice++;
         break;

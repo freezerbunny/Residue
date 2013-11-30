@@ -73,11 +73,13 @@ RPackage::Package RParser::getNext() {
   int level = 0;
 
   bool start;
+  bool escape;
   int col;
   int handlecol;
   unsigned int id = 0;
   while( package.peek() != EOF ) {
     start = false;
+    escape = false;
     delete []part;
     delete []handle;
     part = new char[256];
@@ -86,15 +88,25 @@ RPackage::Package RParser::getNext() {
     col = 0;
 
     while( package.get( c ) ) {
-      if( c == ',' || c == ';' || c == '!' ) {
-        part[col] = '\0';
-        break;
+      if( !escape ) {
+        if( c == ',' || c == ';' || c == '!' ) {
+          part[col] = '\0';
+          break;
+        }
+        if( c == ' ' && !start ) {
+          continue;
+        }
       }
+      if( c == '\\' ) {
+        escape = true;
+        continue;
+      }
+      escape = false;
       if( start ) {
         part[col] = c;
         col++;
       }
-      if( c == ':' ) {
+      if( c == ':' && !start ) {
         start = true;
         // Push back the current handle.
         handle[handlecol] = '\0';
@@ -102,7 +114,7 @@ RPackage::Package RParser::getNext() {
           pack.mappings[handle] = id;
         continue;
       }
-      if( !start && c != '@' && c != ' ' && level < 2 ) {
+      if( !start && c != '@' && level < 2 ) {
         handle[handlecol] = c;
         handlecol++;
       }
@@ -128,6 +140,7 @@ RPackage::Package RParser::getNext() {
     }
     if( c == '!' ) {
         level++;
+        id = 0;
         continue;
     }
   }

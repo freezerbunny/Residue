@@ -16,6 +16,22 @@ class RDictionary {
      */
     RDictionary( std::string filepath );
     virtual ~RDictionary();
+
+    /** \brief Checks if an entity exists with the corresponding id.
+     *
+     * \param id std::string The entity to try and find.
+     * \return bool True if it exists.
+     *
+     */
+    bool find( std::string id );
+
+    /** \brief Looks up the entity with the specified id and returns it.
+     *
+     * \param id std::string The id of the entity to lookup.
+     * \return REntity The entity corresponding to the id.
+     *
+     */
+    REntity lookup( std::string id );
   protected:
   private:
     RParser *parser;

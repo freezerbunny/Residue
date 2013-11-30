@@ -42,7 +42,7 @@ bool RTiler::generateTextures() {
 }
 
 bool RTiler::setTileColour( Uint8 r, Uint8 g, Uint8 b ) {
-  if( SDL_SetTextureColorMod( texture, r, g, b ) ) {
+  if( SDL_SetTextureColorMod( texture, r, g, b ) && safe ) {
     printf( "RTiler: Unable to set tile colour @ %s\n", SDL_GetError() );
     return false;
   }
@@ -101,6 +101,7 @@ bool RTiler::drawTile( int column, int row, int c ) {
   // Check if it's safe to copy.
   if( !( SDL_GetWindowFlags( window ) & SDL_WINDOW_INPUT_FOCUS ) ) {
     safe = false;
+    SDL_DestroyTexture( texture );
   } else if( !safe ) {
     generateTextures();
   }
@@ -169,6 +170,7 @@ bool RTiler::drawBackground( int column, int row, Uint8 r, Uint8 g, Uint8 b, Uin
   // Check if it's safe to copy.
   if( !( SDL_GetWindowFlags( window ) & SDL_WINDOW_INPUT_FOCUS ) ) {
     safe = false;
+    SDL_DestroyTexture( texture );
   } else if( !safe ) {
     generateTextures();
   }
@@ -252,5 +254,6 @@ SDL_Point RTiler::code_to_point( int kC ) {
 }
 
 RTiler::~RTiler() {
-  //dtor
+  delete srcrect;
+  delete dstrect;
 }
