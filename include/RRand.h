@@ -5,7 +5,7 @@
 #include <cstdlib>
 #include <ctime>
 
-/** \brief Class to generate trvial random numbers using C's standard rand function.
+/** \brief Class to generate trivial random numbers using C's standard rand function.
  */
 class RRand {
   public:
@@ -36,7 +36,7 @@ class RRand {
      */
     int steal ( int base, int range );
 
-    /** \brief Rolls a dice, returning the value we landed on.
+    /** \brief Rolls a dice, returning the value of the face.
      *
      * \param number int The number of dice to roll.
      * \param sides int The number of sides per dice.
@@ -45,7 +45,7 @@ class RRand {
      */
     int roll ( int number, int sides );
 
-    /** \brief Tries the specified chance, returning true if good.
+    /** \brief Rolls for the specified chance, returning true if good.
      *
      * \param numerator int The chances.
      * \param denominator int The total roll.

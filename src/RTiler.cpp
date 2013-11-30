@@ -34,7 +34,7 @@ void RTiler::clear() {
 bool RTiler::generateTextures() {
   texture = SDL_CreateTextureFromSurface( renderer, tiles );
   if( !texture ) {
-    printf( "Could not create texture from surface: %s\n", IMG_GetError() );
+    printf( "RTiler: Could not create texture from surface: %s\n", IMG_GetError() );
     return false;
   }
   safe = true;
@@ -43,7 +43,7 @@ bool RTiler::generateTextures() {
 
 bool RTiler::setTileColour( Uint8 r, Uint8 g, Uint8 b ) {
   if( SDL_SetTextureColorMod( texture, r, g, b ) ) {
-    printf( "RTile: Unable to set tile colour @ %s\n", SDL_GetError() );
+    printf( "RTiler: Unable to set tile colour @ %s\n", SDL_GetError() );
     return false;
   }
   return true;
@@ -80,7 +80,7 @@ bool RTiler::outOfBounds( SDL_Point point ) {
 bool RTiler::drawTile( int column, int row, int c ) {
   // Check if row is within terminal limits.
   if( outOfBounds( column, row ) ) {
-    printf( "RTile: Tried to draw out of bounds @ %d,  %d\n", row, column );
+    printf( "RTiler: Tried to draw out of bounds @ %d,  %d\n", row, column );
     return false;
   }
 
@@ -108,7 +108,7 @@ bool RTiler::drawTile( int column, int row, int c ) {
   // Copy to the renderer.
   if( safe ) {
     if( SDL_RenderCopy( renderer, texture, srcrect, dstrect ) ) {
-      printf( "RTile: Unable to copy texture to renderer @ %s\n", SDL_GetError() );
+      printf( "RTiler: Unable to copy texture to renderer @ %s\n", SDL_GetError() );
       return false;
     }
   }
@@ -131,10 +131,6 @@ bool RTiler::drawTile( SDL_Point point, std::string c ) {
 }
 
 bool RTiler::drawString( int column, int row, int width, std::string str ) {
-  if( !width ) {
-    width = column - TERMINAL_COLUMNS;
-  }
-
   // Repeatedly call drawTile to draw the string.
   int cur_column = 0;
   int cur_row = 0;
@@ -155,6 +151,10 @@ bool RTiler::drawString( int column, int row, int width, std::string str ) {
   return true;
 }
 
+bool RTiler::drawCenteredString( int column, int row, std::string str ) {
+  return drawString( column - str.length() / 2, row, 0, str );
+}
+
 bool RTiler::drawBackground( int column, int row, Uint8 r, Uint8 g, Uint8 b, Uint8 a ) {
   // Initialise rect.
   srcrect->x = column * TILE_W;
@@ -166,10 +166,18 @@ bool RTiler::drawBackground( int column, int row, Uint8 r, Uint8 g, Uint8 b, Uin
   // Set the draw mode.
   SDL_SetRenderDrawBlendMode( renderer, SDL_BLENDMODE_BLEND );
 
+  // Check if it's safe to copy.
+  if( !( SDL_GetWindowFlags( window ) & SDL_WINDOW_INPUT_FOCUS ) ) {
+    safe = false;
+  } else if( !safe ) {
+    generateTextures();
+  }
   // Draw the rect.
-  if( SDL_RenderFillRect( renderer, srcrect ) ) {
-    printf( "RTile: Unable to fill rect to renderer @ %s\n", SDL_GetError() );
-    return false;
+  if( safe ) {
+    if( SDL_RenderFillRect( renderer, srcrect ) ) {
+      printf( "RTiler: Unable to fill rect to renderer @ %s\n", SDL_GetError() );
+      return false;
+    }
   }
   return true;
 }
@@ -181,8 +189,10 @@ bool RTiler::drawBackground( int column, int row, SDL_Color col ) {
   return true;
 }
 
-bool RTiler::drawBackground( int column, int row, std::string col ) {
-  if( !drawBackground( column, row, colormap->getColor( col ) ) ) {
+bool RTiler::drawBackground( int column, int row, std::string col, Uint8 a ) {
+  SDL_Color color = colormap->getColor( col );
+  color.a = a;
+  if( !drawBackground( column, row, color ) ) {
     return false;
   }
   return true;

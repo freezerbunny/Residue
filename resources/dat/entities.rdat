@@ -1,0 +1,4 @@
+## Basic entity definitions.
+##
+## The ground we stand on.
+ground@!name:ground, description:Something to stand on.!SURFACE;

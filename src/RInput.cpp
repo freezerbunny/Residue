@@ -2,7 +2,7 @@
 
 RInput::RInput( bool mapped ) {
   this->mapped = mapped;
-  drawable = NULL;
+  drawable = nullptr;
 
   limiter = new RLimiter( FRAME_RATE );
 }
@@ -31,15 +31,13 @@ SDL_Keycode RInput::pollForInput() {
 
           // Check for keypresses
         case SDL_KEYDOWN:
-          if( event.key.keysym.sym == SDLK_ESCAPE ) {
-            input = SDLK_ESCAPE;
-            done = true;
-          }
+          input = event.key.keysym.sym;
+          done = true;
           break;
       }
     }
     limiter->hold();
-    if ( drawable )
+    if( drawable )
       drawable->invoke();
     limiter->release();
   }

@@ -3,10 +3,11 @@
 RTitleScreen::RTitleScreen( RTiler *rtiler ) {
   this->rtiler = rtiler;
 
-  mainmenu = new RMenu( rtiler, 0, 0, 60, RMenuType::MAINMENU, this );
-  mainmenu_entry.name = "Exit";
-  mainmenu_entry.color = "white";
-  mainmenu_entry.key = SDLK_ESCAPE;
+  mainmenu = new RMenu( rtiler, 0, TERMINAL_ROWS / 2, TERMINAL_COLUMNS, RMenuType::MAINMENU, this );
+  mainmenu_entry = { "[ DEBUG ]", "silver", SDLK_d };
+  mainmenu->addEntry( mainmenu_entry );
+
+  mainmenu_entry = { "[ Exit ]", "silver", SDLK_ESCAPE };
   mainmenu->addEntry( mainmenu_entry );
 
   // Logo
@@ -21,19 +22,24 @@ RTitleScreen::RTitleScreen( RTiler *rtiler ) {
   holdrelease = new RHoldRelease( 6 );
 }
 
-bool RTitleScreen::enter() {
+SDL_Keycode RTitleScreen::enter() {
   bool done = false;
   RMenuEntry::Entry choice;
   while( !done ) {
     // Enter the main menu.
     choice = mainmenu->enter();
     switch( choice.key ) {
+      case SDLK_d:
+        done = true;
+        break;
       case SDLK_ESCAPE:
         done = true;
         break;
+      default:
+        break;
     }
   }
-  return true;
+  return choice.key;
 }
 
 void RTitleScreen::invoke() {
@@ -42,9 +48,6 @@ void RTitleScreen::invoke() {
 }
 
 bool RTitleScreen::drawMainMenu() {
-  // Clear screen
-  rtiler->clear();
-
   // HOLD LIMITER.
   holdrelease->hold();
   bool release = holdrelease->release();
@@ -106,13 +109,13 @@ bool RTitleScreen::drawMainMenu() {
 
   // Logo.
   std::stringstream logo;
-  logo << "### ### ### # ##  # # ###\n";
-  logo << "# # #   ##  # # # # # ## \n";
-  logo << "##  ##    # # # # # # #  \n";
-  logo << "# # ### ### # ### ### ###\n";
-  char line[26];
+  logo << "### ### ### ## ##  # # ###\n";
+  logo << "# # #   ##  ## # # # # ## \n";
+  logo << "##  ##    # ## # # # # #  \n";
+  logo << "# # ### ### ## ### ### ###\n";
+  char line[27];
   int row = 0;
-  int left = TERMINAL_COLUMNS / 2 - 13;
+  int left = TERMINAL_COLUMNS / 2 - 14;
   int top = TERMINAL_ROWS / 2 - 9;
 
   if( release ) {
@@ -128,7 +131,7 @@ bool RTitleScreen::drawMainMenu() {
   }
 
   rtiler->setTileColour( "aliceblue" );
-  while( logo.getline( line, 26 ) ) {
+  while( logo.getline( line, 27 ) ) {
     for( int i = 0; i < 26; i++ ) {
       if( line[i] == '#' ) {
         if( i == moverx && row == movery ) {
@@ -142,9 +145,8 @@ bool RTitleScreen::drawMainMenu() {
     }
     row++;
   }
-
-  // Update the screen
-  rtiler->flush();
+  rtiler->setTileColour( "silver" );
+  rtiler->drawCenteredString( TERMINAL_COLUMNS / 2, top + row + 2, "A cyberpunk reality.  " );
 
   return true;
 }

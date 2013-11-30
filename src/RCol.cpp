@@ -20,9 +20,9 @@ bool RCol::parseColorFile( std::string filepath ) {
   while( parser->hasMore() ) {
     pack = parser->getNext();
     if( pack.valid ) {
-      color.r = pack.vars[0];
-      color.g = pack.vars[1];
-      color.b = pack.vars[2];
+      color.r = pack.vars[pack.mappings["r"]];
+      color.g = pack.vars[pack.mappings["g"]];
+      color.b = pack.vars[pack.mappings["b"]];
       color.a = 255;
 
       color_map[pack.id] = color;
