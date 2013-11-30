@@ -87,10 +87,9 @@ RPackage::Package RParser::getNext() {
 
     while( package.get( c ) ) {
       if( c == '!' ) {
-        level++;
         break;
       }
-      if( c == ',' || c == '!' || c == ';' ) {
+      if( c == ',' || c == ';' || c == '!' ) {
         part[col] = '\0';
         break;
       }
@@ -128,10 +127,10 @@ RPackage::Package RParser::getNext() {
       }
       if( c == ';' )
         break;
-      if( c == '!' ) {
+    }
+    if( c == '!' ) {
         level++;
         continue;
-      }
     }
   }
   pack.valid = true;
