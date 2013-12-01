@@ -27,7 +27,7 @@ class RModel {
     unsigned int currentx;/**< Should always point to the block the player is in. */
     unsigned int currenty;
 
-    void addNewEntity( unsigned int blockx, unsigned int blocky, int bitx, int bity, std::string id );/**< Adds a new entity to the specified mapped block. */
+    void addNewEntity( unsigned int blockx, unsigned int blocky, unsigned char bitx, unsigned char bity, std::string id );/**< Adds a new entity to the specified mapped block. */
     void addNewBlock( unsigned int x, unsigned int y );/**< Adds a new block to the stack. */
     RBlock *referenceBlockAt( unsigned int x, unsigned int y );/**< Returns a reference to the block at the mapped location. */
     bool updateActiveBlocks( unsigned int x, unsigned int y );/**< Updates the set of active blocks, optionally loading more blocks when needed and generating terrain. */

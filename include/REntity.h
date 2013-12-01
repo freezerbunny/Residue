@@ -4,6 +4,10 @@
 #include "RInclude.h"
 
 class RModel;
+class RBlock;
+namespace RBit {
+  struct Bit;
+}
 
 namespace RLet {
   struct Let {/**< A structure containing the drawable information of an object or effect. */
@@ -29,20 +33,14 @@ class REntity {
              std::vector<int> vars, std::vector<std::string> strings, std::vector<std::string> flags );
     virtual ~REntity();
 
-    /** \brief Sets the entity's model.
-     *
-     * \param model RModel* A pointer to the model to set.
-     * \return void
-     *
-     */
-    void setModel( RModel *model ) { this->model = model; }
+    void setModel( RModel *model ) { this->model = model; }/**< Set's the entity's current model. */
+    void setBlock( RBlock *block ) { this->block = block; }/**< Set's the entity's current block. */
+    void setBit( RBit::Bit *bit ) { this->bit = bit; }/**< Set's the entity's current bit. */
   protected:
   private:
     RModel *model;
-    unsigned int blockx;
-    unsigned int blocky;
-    unsigned char x;
-    unsigned char y;
+    RBlock *block;
+    RBit::Bit *bit;
 
     std::string id;
     std::map<std::string, unsigned int> mappings;

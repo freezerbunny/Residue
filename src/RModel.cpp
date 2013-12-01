@@ -20,13 +20,21 @@ RModel::RModel( RDictionary *dictionary ) {
   printf( "RModel: Added the player!\n" );
 }
 
-void RModel::addNewEntity( unsigned int blockx, unsigned int blocky, int bitx, int bity, std::string id ) {
+void RModel::addNewEntity( unsigned int blockx, unsigned int blocky, unsigned char bitx, unsigned char bity, std::string id ) {
   if ( dictionary->find( id ) ) {
-    // Create a new entity from the id.
-    REntity new_entity = dictionary->lookup( id );
     // Get the right block.
     RBlock *block = referenceBlockAt( blockx, blocky );
-    // Get a rand bit.
+    // Get the right bit.
+    RBit::Bit *bit = block->getBit( bitx, bity );
+    // Create a new entity.
+    REntity entity = dictionary->lookup( id );
+    entity.setModel( this );
+    entity.setBlock( block );
+    entity.setBit( bit );
+    // Add the entity to the bit.
+    bit->entities.push_back( entity );
+    // Finally, add the entity to the block.
+    block->setBit( bit );
   }
   return;
 }

@@ -25,12 +25,4 @@ namespace RMenuEntry {
   };
 }
 
-namespace RBit {
-  struct Bit {/**< A structure that represents a single world tile. */
-    unsigned char x;
-    unsigned char y;
-    std::vector<REntity> entities;
-  };
-}
-
 #endif // RSTRUCTS_H_INCLUDED

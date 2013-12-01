@@ -60,6 +60,7 @@ bool RDictionary::find( std::string id ) {
 }
 
 REntity RDictionary::lookup( std::string id ) {
+  printf( "RDictionary: Looking up %s\n", id.c_str() );
   return entities[mappings[id]];
 }
 
