@@ -16,16 +16,16 @@ RModel::RModel( RDictionary *dictionary ) {
   updateActiveBlocks( 1, 1 );
 
   // Create the player.
-  addNewEntity( 1, 1, "player" );
+  addNewEntity( 1, 1, 128, 128, "player" );
   printf( "RModel: Added the player!\n" );
 }
 
-void RModel::addNewEntity( unsigned int x, unsigned int y, std::string id ) {
+void RModel::addNewEntity( unsigned int blockx, unsigned int blocky, int bitx, int bity, std::string id ) {
   if ( dictionary->find( id ) ) {
     // Create a new entity from the id.
     REntity new_entity = dictionary->lookup( id );
     // Get the right block.
-    RBlock *block = referenceBlockAt( x, y );
+    RBlock *block = referenceBlockAt( blockx, blocky );
     // Get a rand bit.
   }
   return;

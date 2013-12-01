@@ -2,7 +2,8 @@
 #define RENTITY_H
 
 #include "RInclude.h"
-#include "RModel.h"
+
+class RModel;
 
 namespace RLet {
   struct Let {/**< A structure containing the drawable information of an object or effect. */

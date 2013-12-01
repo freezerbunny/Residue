@@ -1,12 +1,9 @@
 #ifndef RSTRUCTS_H_INCLUDED
 #define RSTRUCTS_H_INCLUDED
 
-#include "RInclude.h"
-#include "REnums.h"
 #include "REntity.h"
 
 /**< Defines structures that are used for wrapping data */
-
 namespace RPackage {
   struct Package {
     std::string id;

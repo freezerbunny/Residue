@@ -15,4 +15,6 @@
 #include <cstdio>
 #include <cmath>
 
+#include "RDefs.h"
+
 #endif // RINCLUDE_H_INCLUDED

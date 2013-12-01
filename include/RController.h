@@ -3,7 +3,8 @@
 
 #include "RInclude.h"
 #include "RGame.h"
-#include "RTiler.h"
+
+class RTiler;
 
 /** \brief The game and world controller. Responsible for handling/dispatching events and controlling the interface and display.
  */

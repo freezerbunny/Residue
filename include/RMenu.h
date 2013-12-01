@@ -2,12 +2,10 @@
 #define RMENU_H
 
 #include "RInclude.h"
-#include "RDefs.h"
 #include "REnums.h"
 #include "RTiler.h"
 #include "RDrawable.h"
 #include "RRand.h"
-#include "RLimiter.h"
 #include "RHoldRelease.h"
 #include "RInput.h"
 

@@ -4,7 +4,6 @@
 #include "RInclude.h"
 #include "RCol.h"
 #include "RHandles.h"
-#include "RDefs.h"
 
 /** \brief Used to draw tiles to the screen.
  */
