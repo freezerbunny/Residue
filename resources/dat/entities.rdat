@@ -2,9 +2,8 @@
 ##
 ## The ground we stand on.
 ground@height:0!
-      name:ground,
-        character:.,
-        color:grey,!
+      name:ground, character:., color:grey,
+      bindings:null!
         t:TERRAIN;
 ## Human body.
 human_body@height:7!
@@ -16,24 +15,31 @@ human_body@height:7!
         bindings:human_brain^human_eyes!
           t:PART, f:FEELS;
     human_brain@height:0!
-          name:brain, character:*, color:pink!
+          name:brain, character:*, color:pink,
+          bindings:null!
           t:BRAIN;
     human_eyes@height:0!
-          name:eyes, character:*, color:white!
+          name:eyes, character:*, color:white,
+          bindings:null!
           t:SEES, f:FEELS;
   human_shoulders@height:1!
-        name:shoulders, character:%, color:white!
+        name:shoulders, character:%, color:white,
+          bindings:null!
           t:PART, f:FEELS;
   human_chest@height:1!
-        name:chest, character:%, color:white!
+        name:chest, character:%, color:white,
+          bindings:null!
           t:PART, f:FEELS;
   human_pelvis@height:1!
-        name:pelvis, character:%, color:white!
+        name:pelvis, character:%, color:white,
+          bindings:null!
           t:PART, f:FEELS;
   human_legs@height:3!
-        name:legs, character:%, color:white!
+        name:legs, character:%, color:white,
+          bindings:null!
           t:PART, f:FEELS;
   human_feet@height:1!
-        name:feet, character:%, color:white!
+        name:feet, character:%, color:white,
+          bindings:null!
           t:PART, f:FEELS;
 ##
