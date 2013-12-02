@@ -35,7 +35,9 @@ class RDictionary {
   protected:
   private:
     RParser *parser;
-    void parse();
+    void parse();/**< Parses the entity file into a vector of entities. */
+    void bindEntity( unsigned int index );/**< Binds an entity to another. */
+    REntity *fetchEntity( std::string id ) { return &entities[mappings[id]]; }/**< Returns a pointer to the entity specified by the id. */
 
     std::map<std::string, unsigned int> mappings;
     std::vector<REntity> entities;

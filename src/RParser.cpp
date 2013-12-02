@@ -35,6 +35,7 @@ RPackage::Package RParser::getNext() {
   std::stringstream package;
 
   bool comment = false;
+  bool escape = false;
   while( hasMore() ) {
     c = input.get();
 
@@ -52,7 +53,13 @@ RPackage::Package RParser::getNext() {
         continue;
       package << c;
 
-      if( c == ';' )
+      if( c == '\\' ) {
+        escape = true;
+        continue;
+      }
+      escape = false;
+
+      if( c == ';' && !escape )
         break;
     }
   }
@@ -63,7 +70,15 @@ RPackage::Package RParser::getNext() {
   // Now grab the id.
   char *part = new char[256];
   package.get( part, 64, '@' );
-  pack.id = part;
+  std::stringstream dump;
+  for ( int i = 0; i < 256; i++ ) {
+    if ( part[i] == ' ' )
+      continue;
+    if ( part[i] == '\0' )
+      break;
+    dump << part[i];
+  }
+  pack.id = dump.str();
 
   // Ready the map handle.
   char *handle;
@@ -73,7 +88,6 @@ RPackage::Package RParser::getNext() {
   int level = 0;
 
   bool start;
-  bool escape;
   int col;
   int handlecol;
   unsigned int id = 0;

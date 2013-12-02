@@ -33,6 +33,12 @@ class REntity {
              std::vector<int> vars, std::vector<std::string> strings, std::vector<std::string> flags );
     virtual ~REntity();
 
+    std::string getid() { return id; }/**< Gets the entity's id. */
+    std::string getString( std::string handle ) { return strings[mappings[handle]]; }/**< Gets the string mapped to the specified handle. */
+
+    void bindEntity( REntity *entity );/**< Binds an entity to this entity's list. */
+    std::vector<REntity*> getBindings() { return entities; }/**< Returns the entity's bindings */
+
     void setModel( RModel *model ) { this->model = model; }/**< Set's the entity's current model. */
     void setBlock( RBlock *block ) { this->block = block; }/**< Set's the entity's current block. */
     void setBit( RBit::Bit *bit ) { this->bit = bit; }/**< Set's the entity's current bit. */
@@ -48,7 +54,7 @@ class REntity {
     std::vector<std::string> strings;
     std::vector<std::string> flags;
 
-    std::vector<REntity> entities;
+    std::vector<REntity*> entities;
 
     RLet::Let graphlet;
 };

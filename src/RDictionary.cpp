@@ -12,6 +12,35 @@ RDictionary::RDictionary( std::string filepath ) {
   parse();
   delete parser;
   printf( "RDictionary: Destroyed parser.\n" );
+
+  // Generate bindings.
+  for( unsigned int i = 0; i < entities.size(); i++ ) {
+    bindEntity( i );
+  }
+  printf( "RDictionary: Created bindings.\n" );
+}
+
+void RDictionary::bindEntity( unsigned int index ) {
+  static std::map<unsigned int, bool> entityBound;
+  static const std::string handle = "bindings";
+  static const std::string null = "null";
+  if( !entityBound[index] ) {
+    std::stringstream dump( entities[index].getString( handle ) );
+    if( dump.str() == null )
+      return;
+    printf( "RDictionary: Found bindings for %s\n", entities[index].getid().c_str() );
+    // Extract bindings.
+    std::vector<std::string> bindings;
+    char part[64];
+    while( dump.get( part, 64, '^' ) ) {
+      bindings.push_back( part );
+      dump.ignore();
+    }
+    for( std::vector<std::string>::iterator it = bindings.begin();
+         it != bindings.end(); ++it ) {
+      entities[index].bindEntity( fetchEntity( *it ) );
+    }
+  }
 }
 
 void RDictionary::parse() {
@@ -25,6 +54,7 @@ void RDictionary::parse() {
   std::vector<std::string> strings;
   std::vector<std::string> flags;
 
+  // Create entities.
   int index = 0;
   while( parser->hasMore() ) {
     pack = parser->getNext();
@@ -45,8 +75,8 @@ void RDictionary::parse() {
     }
   }
   printf( "RDictionary: Parsed entity file. Total @ %d, Last @ %s\n", index, id.c_str() );
-  printf( "             Name @ %s, Description @ %s\n",
-          strings[maps["name"]].c_str(), strings[maps["description"]].c_str() );
+  printf( "             Name @ %s, Character @ %s\n",
+          strings[maps["name"]].c_str(), strings[maps["character"]].c_str() );
 }
 
 bool RDictionary::find( std::string id ) {

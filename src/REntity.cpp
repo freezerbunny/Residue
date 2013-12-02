@@ -13,5 +13,9 @@ REntity::REntity( std::string id, std::map<std::string, unsigned int> mappings,
   graphlet.color = strings[mappings["color"]];
 }
 
+void REntity::bindEntity( REntity *entity ) {
+  entities.push_back( entity );
+}
+
 REntity::~REntity() {
 }
