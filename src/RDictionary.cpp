@@ -12,6 +12,8 @@ RDictionary::RDictionary( std::string filepath ) {
   parse();
   delete parser;
   printf( "RDictionary: Destroyed parser.\n" );
+
+  // Generate bindings.
 }
 
 void RDictionary::parse() {
@@ -25,6 +27,7 @@ void RDictionary::parse() {
   std::vector<std::string> strings;
   std::vector<std::string> flags;
 
+  // Create entities.
   int index = 0;
   while( parser->hasMore() ) {
     pack = parser->getNext();
@@ -45,8 +48,8 @@ void RDictionary::parse() {
     }
   }
   printf( "RDictionary: Parsed entity file. Total @ %d, Last @ %s\n", index, id.c_str() );
-  printf( "             Name @ %s, Description @ %s\n",
-          strings[maps["name"]].c_str(), strings[maps["description"]].c_str() );
+  printf( "             Name @ %s, Character @ %s\n",
+          strings[maps["name"]].c_str(), strings[maps["character"]].c_str() );
 }
 
 bool RDictionary::find( std::string id ) {

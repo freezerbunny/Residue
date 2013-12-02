@@ -16,8 +16,6 @@ RModel::RModel( RDictionary *dictionary ) {
   updateActiveBlocks( 1, 1 );
 
   // Create the player.
-  addNewEntity( 1, 1, 128, 128, "player" );
-  printf( "RModel: Added the player!\n" );
 }
 
 void RModel::addNewEntity( unsigned int blockx, unsigned int blocky, unsigned char bitx, unsigned char bity, std::string id ) {

@@ -3,13 +3,37 @@
 ## The ground we stand on.
 ground@height:0!
       name:ground,
-        description:Something to stand on.,
         character:.,
         color:grey,!
-        f:TERRAIN;
-player@height:7!
-      name:player,
-        description:It's you\!,
-        character:@,
-        color:white,!
-        f:ACTOR;
+        t:TERRAIN;
+## Human body.
+human_body@height:7!
+      name:body, character:@, color:white,
+        bindings:human_head^human_shoulders^human_chest^human_pelvis^human_legs^human_feet!
+        t:SHELL;
+  human_head@height:1!
+        name:head, character:%, color:white,
+        bindings:human_brain^human_eyes!
+          t:PART, f:FEELS;
+    human_brain@height:0!
+          name:brain, character:*, color:pink!
+          t:BRAIN;
+    human_eyes@height:0!
+          name:eyes, character:*, color:white!
+          t:SEES, f:FEELS;
+  human_shoulders@height:1!
+        name:shoulders, character:%, color:white!
+          t:PART, f:FEELS;
+  human_chest@height:1!
+        name:chest, character:%, color:white!
+          t:PART, f:FEELS;
+  human_pelvis@height:1!
+        name:pelvis, character:%, color:white!
+          t:PART, f:FEELS;
+  human_legs@height:3!
+        name:legs, character:%, color:white!
+          t:PART, f:FEELS;
+  human_feet@height:1!
+        name:feet, character:%, color:white!
+          t:PART, f:FEELS;
+##
